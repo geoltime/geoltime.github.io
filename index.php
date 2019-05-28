@@ -276,7 +276,7 @@ function wikilink($page, $title=null){
 					</div>
 					<div id=sources style="text-align:right; font-size:smaller; font-style:italic">
 						Compiled using data from <a href="http://www.stratigraphy.org/geowhen/" 
-						title="The GEOWHEN database, provided by the international commission for stratigraphy">the GeoWhen database</a>. <a href='http://en.wikipedia.org/wiki/User_talk:Smith609/Timeline' title="Talk page for this page">Discuss</a> this implementation by <a 
+						title="The GEOWHEN database, provided by the international commission for stratigraphy">the GeoWhen database</a>. <a href='https://github.com/ms609/timescale' title="Github repo for this page">Discuss or improve</a> this implementation by <a 
 						href="http://en.wikipedia.org/wiki/User:Smith609" title="Martin Smith's Wikipedia user page">Martin Smith</a>. 
 						
 						<br><span xmlns:dc="http://purl.org/dc/elements/1.1/" href="http://purl.org/dc/dcmitype/InteractiveResource" property="dc:title" rel="dc:type">Geological timescale</span> is licensed under a
