@@ -31,13 +31,13 @@ function wikilink($page, $title=null){
   <meta content="The geological time scale" name="description" />
 
   <title>
-   <? echo $ma?"$ma million years ago - the geological timescale - Wikimedia toolserver":"The geological time scale @ the Wikimedia toolserver";?>
+   <?php echo $ma?"$ma million years ago - the geological timescale - Wikimedia toolserver":"The geological time scale @ the Wikimedia toolserver";?>
   </title>
   <link rel='stylesheet' type="text/css" href='style.css' />
   <style type='text/css'>
-    .gap0{width:<?echo ((500*799/$lastPeriod[0]));?>px}
-    .gap1{width:<?echo (( 50*799/$lastPeriod[1]));?>px}
-    .gap2{width:<?echo (( 10*799/$lastPeriod[2]));?>px}
+    .gap0{width:<?php echo ((500*799/$lastPeriod[0]));?>px}
+    .gap1{width:<?php echo (( 50*799/$lastPeriod[1]));?>px}
+    .gap2{width:<?php echo (( 10*799/$lastPeriod[2]));?>px}
   </style>
    
 </head>
@@ -47,27 +47,27 @@ function wikilink($page, $title=null){
       <div id="content">
         <a name="top" id="top"></a>  
         <h1 class="firstHeading">
-          <? echo $ma?"$ma million years ago":"The geological time scale";?>
+          <?php echo $ma?"$ma million years ago":"The geological time scale";?>
 				</h1> 
         <div id="bodyContent"> 
           <h3 id="siteSub">
             by Smith609, design adapted from Luxo's</h3> 
           <div id="contentSub">
-            <? echo $ma?"on t":"T";?>he international stratigraphic timescale&nbsp;
+            <?php echo $ma?"on t":"T";?>he international stratigraphic timescale&nbsp;
           </div>
-					<? if ($from) {?>
+					<?php if ($from) {?>
 					<div style="float:left; padding-left:2em; font-size:smaller">
-						<?if (preg_match('~^http://\w+\.wikipedia\.org~', $from)) {?>
-						<a href='<? echo $from;?>' title="Return to referring page">&lt; Back to article</a><?}else{?>
-						<a href='<? echo $from;?>' title="Return to referring page">&lt; Back</a><?}?>
-					</div><?}
+						<?php if (preg_match('~^http://\w+\.wikipedia\.org~', $from)) {?>
+						<a href='<?php echo $from;?>' title="Return to referring page">&lt; Back to article</a><?php }else{ ?>
+						<a href='<?php echo $from;?>' title="Return to referring page">&lt; Back</a><?php }?>
+					</div><?php }
 					$sot = $lastPeriod[0];?>
           <!-- start content --> 
           <div id="laden">
-						<?if ($ma) {?>
+						<?php if ($ma) {?>
              <fieldset>
               <legend>When</legend>
-              <? if ($ma < $sot) echo wikilink($periods[1][$period[1][0]][0]), " era"; else echo "Before formation of Earth.";
+              <?php if ($ma < $sot) echo wikilink($periods[1][$period[1][0]][0]), " era"; else echo "Before formation of Earth.";
 							if ($periods[2][$period[2][0]][0]!="Present" && $period[1][0]<=$period[2][0] && $period[1][1]>=$period[2][1]) echo ", " , wikilink($periods[2][$period[2][0]][0]), " eon";
 							if ($periods[3][$period[3][0]][0] && $period[2][0]<=$period[3][0] && $period[2][1]>=$period[3][1]) echo ", " , wikilink($periods[3][$period[3][0]][0]), " period";
 							if ($periods[4][$period[4][0]][0] && $period[3][0]<=$period[4][0] && $period[3][1]>=$period[4][1]) echo ", " , wikilink($periods[4][$period[4][0]][0]), " subperiod";
@@ -75,11 +75,11 @@ function wikilink($page, $title=null){
 							if ($periods[6][$period[6][0]][0] && $period[5][0]<=$period[6][0] && $period[5][1]>=$period[6][1]) echo ", " , wikilink($periods[6][$period[6][0]][0]), " stage";
 							?>
 							</fieldset>
-						<?}?>
+						<?php }?>
 							<fieldset>
 							<legend>Timeline</legend>
 							<div id='timeline_holder' style='width:799px; height:348px; position:relative; margin:0; padding:0;'>
-							<?
+							<?php 
 							
 							if ($ma) {
 								preg_match("~([\d\.]+)([^\d\.]*([\d\.]+))?~", $ma, $range);
@@ -87,189 +87,189 @@ function wikilink($page, $title=null){
 								$rangeEnd = $range[3];
 								$ma = ($rangeEnd>$rangeStart)?$rangeEnd:$rangeStart;
 							?>
-								<div id='allStartArrow' style='position:absolute; right:<?echo ((799*$rangeStart/$sot)-1);?>px; border-right:solid #c33 1px; height:18px; line-height:18px; padding-left:1px; font-style:italic;'><?echo $rangeStart;?>&nbsp;Ma</div>
-							<? if ($rangeEnd){							?>
-								<div id='allEndArrow' style='position:absolute; left:<?echo (799-(799*$rangeEnd/$sot));?>px; border-left:solid #c33 1px; height:18px; line-height:18px; padding-left:1px; font-style:italic;'><?echo $rangeEnd;?>&nbsp;Ma</div>
-							<? }
+								<div id='allStartArrow' style='position:absolute; right:<?php echo ((799*$rangeStart/$sot)-1);?>px; border-right:solid #c33 1px; height:18px; line-height:18px; padding-left:1px; font-style:italic;'><?php echo $rangeStart;?>&nbsp;Ma</div>
+							<?php if ($rangeEnd){							?>
+								<div id='allEndArrow' style='position:absolute; left:<?php echo (799-(799*$rangeEnd/$sot));?>px; border-left:solid #c33 1px; height:18px; line-height:18px; padding-left:1px; font-style:italic;'><?php echo $rangeEnd;?>&nbsp;Ma</div>
+							<?php }
 							}
 							//Start the first timeline ?>
 								<div id=allTime>
-								<?foreach($periods[1] as $tp){//tp=Time Period
+								<?php foreach($periods[1] as $tp){//tp=Time Period
 									if ($lastTP){?>
-									<div style='position:absolute; text-align:center; border:1px solid; border-right:none; left:<?echo (799-($lastTP[1]*799/$sot));?>px;
-										height:16px; line-height:15px; top:18px; width:<? echo (($lastTP[1]-$tp[1])*799/$sot);?>px; overflow:hidden; background:rgb(<?echo $lastTP[2];?>);'><?echo wikilink($lastTP[0])?></div>
-								<?}$lastTP = $tp;}$lastTP=null;
+									<div style='position:absolute; text-align:center; border:1px solid; border-right:none; left:<?php echo (799-($lastTP[1]*799/$sot));?>px;
+										height:16px; line-height:15px; top:18px; width:<?php echo (($lastTP[1]-$tp[1])*799/$sot);?>px; overflow:hidden; background:rgb(<?php echo $lastTP[2];?>);'><?php echo wikilink($lastTP[0])?></div>
+								<?php }$lastTP = $tp;}$lastTP=null;
 								
 								foreach($periods[2] as $tp){//tp=Time Period
 									if ($lastTP){
 									if (strpos($lastTP[0],"erozoi") === FALSE){?>
 									
-									<div style='position:absolute; text-align:center; border:1px solid; border-right:none; left:<?echo (799-($lastTP[1]*799/$sot));?>px;
-										height:26px; font-size:smaller; line-height:12px; top:35px; width:<? echo (($lastTP[1]-$tp[1])*799/$sot);?>px; overflow:hidden; background:rgb(<?echo $lastTP[2];?>);'><?
+									<div style='position:absolute; text-align:center; border:1px solid; border-right:none; left:<?php echo (799-($lastTP[1]*799/$sot));?>px;
+										height:26px; font-size:smaller; line-height:12px; top:35px; width:<?php echo (($lastTP[1]-$tp[1])*799/$sot);?>px; overflow:hidden; background:rgb(<?php echo $lastTP[2];?>);'><?php 
 									echo wikilink($lastTP[0], str_replace("archean", "arch-<br>ean",str_replace("zoic", "-<br>zoic",$lastTP[0]))); ?></div>
-								<?} else {?>
+								<?php } else {?>
 									
-									<div style='position:absolute; text-align:center; border:1px solid; border-right:none; left:<?echo (799-($lastTP[1]*799/$sot));?>px;
-										height:26px;	font-size:smaller; line-height:25px; top:35px; width:<? echo (($lastTP[1]-$tp[1])*799/$sot);?>px; overflow:hidden; background:rgb(<?echo $lastTP[2];?>);'><?
+									<div style='position:absolute; text-align:center; border:1px solid; border-right:none; left:<?php echo (799-($lastTP[1]*799/$sot));?>px;
+										height:26px;	font-size:smaller; line-height:25px; top:35px; width:<?php echo (($lastTP[1]-$tp[1])*799/$sot);?>px; overflow:hidden; background:rgb(<?php echo $lastTP[2];?>);'><?php 
 									echo wikilink($lastTP[0]); ?></div>
-								<?}}$lastTP = $tp;}$lastTP=null;
+								<?php }}$lastTP = $tp;}$lastTP=null;
 								
 								foreach($periods[3] as $tp){//tp=Time Period
 									if ($lastTP){
 									if ($lastTP[1]>700){//{Phanerozoic or Ediacaran}?>
 									
-									<div style='position:absolute; text-align:center; border:1px solid; border-right:none; left:<?echo (799-($lastTP[1]*799/$sot));?>px; height:25px;
-									font-size:smaller; line-height:12px; top:62px; width:<? echo (($lastTP[1]-$tp[1])*799/$sot);?>px; overflow:hidden; background:rgb(<?echo $lastTP[2];?>);'><?
+									<div style='position:absolute; text-align:center; border:1px solid; border-right:none; left:<?php echo (799-($lastTP[1]*799/$sot));?>px; height:25px;
+									font-size:smaller; line-height:12px; top:62px; width:<?php echo (($lastTP[1]-$tp[1])*799/$sot);?>px; overflow:hidden; background:rgb(<?php echo $lastTP[2];?>);'><?php 
 									echo wikilink($lastTP[0],preg_replace("~([^-])(\wian)~", "$1<br>-$2", preg_replace("~([^m])ian~", "$1<br>-ian", $lastTP[0]))); ?></div>
-								<?} else {?>
+								<?php } else {?>
 									
-									<div style='position:absolute; text-align:center; border:1px solid; border-right:none; left:<?echo (799-($lastTP[1]*799/$sot));?>px; height:25px;
-									font-size:smaller; line-height:25px; top:62px; width:<? echo (($lastTP[1]-$tp[1])*799/$sot);?>px; overflow:hidden; background:rgb(<?echo $lastTP[2];?>);'><?
+									<div style='position:absolute; text-align:center; border:1px solid; border-right:none; left:<?php echo (799-($lastTP[1]*799/$sot));?>px; height:25px;
+									font-size:smaller; line-height:25px; top:62px; width:<?php echo (($lastTP[1]-$tp[1])*799/$sot);?>px; overflow:hidden; background:rgb(<?php echo $lastTP[2];?>);'><?php 
 									echo wikilink($lastTP[0], str_replace("&", "&#x0404;",substr(str_replace("Cret", "K", str_replace("Camb", "&", $lastTP[0])), 0,1))); ?></div>
-								<?}}$lastTP = $tp;}$lastTP=null;?>
+								<?php }}$lastTP = $tp;}$lastTP=null;?>
 								</div alltime>
 								<div id=AllTimeBar style="position:absolute; top:88px; height:1px; right:-1px; width:799px;
 										background:black; line-height:1px; border:none; font-size:1px;">&nbsp;</div>
 								<div id=AllTimeScale style="z-index:10;position:absolute; top:89px; height:4px; right:-1px; width:799px;
 										border-left:1px black solid; line-height:3px; border:none; font-size:3px;">
-									<?
+									<?php 
 									for ($i=0;$i<$sot;$i+=100){?>
-										<div class="timelineDash<?echo ($i%500==0)?" tall":"";?>" style="right:<?echo ($i*799/$lastPeriod[0]);?>px";>&nbsp;</div>
-									<?}?>
+										<div class="timelineDash<?php echo ($i%500==0)?" tall":"";?>" style="right:<?php echo ($i*799/$lastPeriod[0]);?>px";>&nbsp;</div>
+									<?php }?>
 								</div>
-								<div id=AllTimeLegend style="text-align:center;position:absolute; top:95px; height:14px; right:-<?echo ((250*799/$lastPeriod[0])+1);?>px;
-								width:<?echo ((250*799/$lastPeriod[0])+799+100);?>px;	line-height:13px; border:none; font-size:9px;">
-									<?
+								<div id=AllTimeLegend style="text-align:center;position:absolute; top:95px; height:14px; right:-<?php echo ((250*799/$lastPeriod[0])+1);?>px;
+								width:<?php echo ((250*799/$lastPeriod[0])+799+100);?>px;	line-height:13px; border:none; font-size:9px;">
+									<?php 
 									for ($i=0;$i<$sot;$i+=500){?>
-										<div class="timelineLabel gap0" style="right:<?echo ($i*799/$lastPeriod[0]);?>px"><?echo $i;?></div> 
-									<?}?>
+										<div class="timelineLabel gap0" style="right:<?php echo ($i*799/$lastPeriod[0]);?>px"><?php echo $i;?></div> 
+									<?php }?>
 								</div>
-								<?
+								<?php 
 								//End of first timeline.  Do we need to draw another?
 								if (!$ma || $ma <= $lastPeriod[1]){?>
-									<div id=PhanerozoicScale style="z-index:1; position:absolute; top:89px; height:4px; right:-1px; width:<?echo ($lastPeriod[1]*799/$sot);?>px;
+									<div id=PhanerozoicScale style="z-index:1; position:absolute; top:89px; height:4px; right:-1px; width:<?php echo ($lastPeriod[1]*799/$sot);?>px;
 										border-left:1px black solid; line-height:1px; border:none; background:#e99; font-size:1px;">&nbsp;</div>
 									
 									
 									
-								<?
+								<?php 
 									$sot = $lastPeriod[1];
 									if ($ma){
 									?>
-										<div id='PhanerozoicStartArrow' style='position:absolute; top:115px; right:<?echo ((799*$rangeStart/$sot)-1);?>px; border-right:solid #c33 1px; height:18px; line-height:18px; padding-left:1px; font-style:italic;'><?echo $rangeStart;?>&nbsp;Ma</div>
-									<? if ($rangeEnd){	?>
-										<div id='PhanerozoicEndArrow' style='position:absolute; top:115px; left:<?echo (799-(799*$rangeEnd/$sot));?>px; border-left:solid #c33 1px; height:18px; line-height:18px; padding-left:1px; font-style:italic;'><?echo $rangeEnd;?>&nbsp;Ma</div>
-									<? }
+										<div id='PhanerozoicStartArrow' style='position:absolute; top:115px; right:<?php echo ((799*$rangeStart/$sot)-1);?>px; border-right:solid #c33 1px; height:18px; line-height:18px; padding-left:1px; font-style:italic;'><?php echo $rangeStart;?>&nbsp;Ma</div>
+									<?php if ($rangeEnd){	?>
+										<div id='PhanerozoicEndArrow' style='position:absolute; top:115px; left:<?php echo (799-(799*$rangeEnd/$sot));?>px; border-left:solid #c33 1px; height:18px; line-height:18px; padding-left:1px; font-style:italic;'><?php echo $rangeEnd;?>&nbsp;Ma</div>
+									<?php }
 									}
 									
 								//Start the Phanerozoic timeline?>
 									
 									<div id=Phanerozoic style="top:115px; position:relative;">
-									<?
+									<?php 
 									foreach($periods[1] as $tp){//tp=Eon
 										if ($lastTP[1]<=$lastPeriod[1]){?>
-										<div style='position:absolute; text-align:center; border:1px solid; border-right:none; left:<?echo (799-($lastTP[1]*799/$sot));?>px;
-											height:16px; line-height:15px; top:18px; width:<? echo (($lastTP[1]-$tp[1])*799/$sot);?>px; overflow:hidden; background:rgb(<?echo $lastTP[2];?>);'><?echo wikilink($lastTP[0])?></div>
-								<?}$lastTP = $tp;}$lastTP=null;
+										<div style='position:absolute; text-align:center; border:1px solid; border-right:none; left:<?php echo (799-($lastTP[1]*799/$sot));?>px;
+											height:16px; line-height:15px; top:18px; width:<?php echo (($lastTP[1]-$tp[1])*799/$sot);?>px; overflow:hidden; background:rgb(<?php echo $lastTP[2];?>);'><?php echo wikilink($lastTP[0])?></div>
+								<?php }$lastTP = $tp;}$lastTP=null;
 								
 									foreach($periods[2] as $tp){//tp=Era
 										if ($lastTP[1]<=$lastPeriod[1]){?>
-										<div style='position:absolute; text-align:center; border:1px solid; border-right:none; left:<?echo (799-($lastTP[1]*799/$sot));?>px;
-											height:16px; line-height:15px; top:35px; width:<? echo (($lastTP[1]-$tp[1])*799/$sot);?>px; overflow:hidden; background:rgb(<?echo $lastTP[2];?>);'><?echo wikilink($lastTP[0])?></div>
-								<?}$lastTP = $tp;}$lastTP=null;
+										<div style='position:absolute; text-align:center; border:1px solid; border-right:none; left:<?php echo (799-($lastTP[1]*799/$sot));?>px;
+											height:16px; line-height:15px; top:35px; width:<?php echo (($lastTP[1]-$tp[1])*799/$sot);?>px; overflow:hidden; background:rgb(<?php echo $lastTP[2];?>);'><?php echo wikilink($lastTP[0])?></div>
+								<?php }$lastTP = $tp;}$lastTP=null;
 									
 									foreach($periods[3] as $tp){//tp=Period
 										if ($lastTP[1]<=$lastPeriod[1]){
 											if ($lastTP[1]>$lastPeriod[2]){?>
-											<div style='position:absolute; text-align:center; border:1px solid; border-right:none; left:<?echo (799-($lastTP[1]*799/$sot));?>px; height:25px;
-											font-size:smaller; line-height:25px; top:52px; width:<? echo (($lastTP[1]-$tp[1])*799/$sot);?>px; overflow:hidden; background:rgb(<?echo $lastTP[2];?>);'><?
+											<div style='position:absolute; text-align:center; border:1px solid; border-right:none; left:<?php echo (799-($lastTP[1]*799/$sot));?>px; height:25px;
+											font-size:smaller; line-height:25px; top:52px; width:<?php echo (($lastTP[1]-$tp[1])*799/$sot);?>px; overflow:hidden; background:rgb(<?php echo $lastTP[2];?>);'><?php 
 											echo wikilink($lastTP[0]); ?></div>
-										<?}else{?>
+										<?php }else{?>
 											
-											<div style='position:absolute; text-align:center; border:1px solid; border-right:none; left:<?echo (799-($lastTP[1]*799/$sot));?>px; height:25px;
-											font-size:smaller; line-height:12px; top:52px; width:<? echo (($lastTP[1]-$tp[1])*799/$sot);?>px; overflow:hidden; background:rgb(<?echo $lastTP[2];?>);'><?
+											<div style='position:absolute; text-align:center; border:1px solid; border-right:none; left:<?php echo (799-($lastTP[1]*799/$sot));?>px; height:25px;
+											font-size:smaller; line-height:12px; top:52px; width:<?php echo (($lastTP[1]-$tp[1])*799/$sot);?>px; overflow:hidden; background:rgb(<?php echo $lastTP[2];?>);'><?php 
 											echo wikilink($lastTP[0], str_replace("gene", "-<br>gene",$lastTP[0])); ?></div>
-										<?}}$lastTP = $tp;
+										<?php }}$lastTP = $tp;
 									}$lastTP=null;?>
 									
 								
 									</div Phanerozoic>
 									<div id=PhanerozoicTimeScale style="z-index:10; position:absolute; top:194px; height:4px; right:-1px; width:799px;
 									border-left:1px black solid; line-height:3px; border:none; font-size:3px;">
-									<?
+									<?php 
 									for ($i=0;$i<$sot;$i+=10){?>
-										<div class="timelineDash<?echo ($i%50==0)?" tall":"";?>" style="right:<?echo ($i*799/$lastPeriod[1]);?>px";>&nbsp;</div>
-									<?}?>
+										<div class="timelineDash<?php echo ($i%50==0)?" tall":"";?>" style="right:<?php echo ($i*799/$lastPeriod[1]);?>px";>&nbsp;</div>
+									<?php }?>
 									</div>
 									<div id=PhanerozoicTimeLegend style="text-align:center;position:absolute; top:200px; height:14px;
-									right:-<?echo ((25*799/$lastPeriod[1])+1);?>px;
-									width:<?echo ((25*799/$lastPeriod[1])+799+100);?>px;	line-height:13px; border:none; font-size:9px;">
-										<?
+									right:-<?php echo ((25*799/$lastPeriod[1])+1);?>px;
+									width:<?php echo ((25*799/$lastPeriod[1])+799+100);?>px;	line-height:13px; border:none; font-size:9px;">
+										<?php 
 										for ($i=0;$i<$sot;$i+=100){?>
-											<div class="timelineLabel gap1" style="right:<?echo ($i*799/$lastPeriod[1]);?>px"><?echo $i;?></div> 
-										<?}?>
+											<div class="timelineLabel gap1" style="right:<?php echo ($i*799/$lastPeriod[1]);?>px"><?php echo $i;?></div> 
+										<?php }?>
 									</div>
 										
-									<?
+									<?php 
 									//End of second timeline.  Do we need a third for the Cenozoic?
 									
 									if (!$ma || $ma <= $lastPeriod[2]){?>
-										<div id=CeonzoicScale style="z-index:1; position:absolute; top:194px; height:4px; right:-1px; width:<?echo ($lastPeriod[2]*799/$sot);?>px;
+										<div id=CeonzoicScale style="z-index:1; position:absolute; top:194px; height:4px; right:-1px; width:<?php echo ($lastPeriod[2]*799/$sot);?>px;
 											border-left:1px black solid; line-height:1px; border:none; background-color:#e99; font-size:1px;">&nbsp;</div>
-										<?
+										<?php 
 										$sot = $lastPeriod[2];
 										if ($ma){
 										?>
-											<div id='CenozoicStartArrow' style='position:absolute; top:230px; right:<?echo ((799*$rangeStart/$sot)-1);?>px; border-right:solid #c33 1px; height:18px; line-height:18px; padding-left:1px; font-style:italic;'><?echo $rangeStart;?>&nbsp;Ma</div>
-										<? if ($rangeEnd){							?>
-											<div id='CenozoicEndArrow' style='position:absolute; top:230px; left:<?echo (799-(799*$rangeEnd/$sot));?>px; border-left:solid #c33 1px; height:18px; line-height:18px; padding-left:1px; font-style:italic;'><?echo $rangeEnd;?>&nbsp;Ma</div>
-										<? }
+											<div id='CenozoicStartArrow' style='position:absolute; top:230px; right:<?php echo ((799*$rangeStart/$sot)-1);?>px; border-right:solid #c33 1px; height:18px; line-height:18px; padding-left:1px; font-style:italic;'><?php echo $rangeStart;?>&nbsp;Ma</div>
+										<?php if ($rangeEnd){							?>
+											<div id='CenozoicEndArrow' style='position:absolute; top:230px; left:<?php echo (799-(799*$rangeEnd/$sot));?>px; border-left:solid #c33 1px; height:18px; line-height:18px; padding-left:1px; font-style:italic;'><?php echo $rangeEnd;?>&nbsp;Ma</div>
+										<?php }
 										}
 										?>
 										<div id=Cenozoic style="top:230px; position:relative;">
-										<?
+										<?php 
 										foreach($periods[2] as $tp){//tp=Time Period
 											if ($lastTP[1]<=$lastPeriod[2]){?>
-											<div style='position:absolute; text-align:center; border:1px solid; border-right:none; left:<?echo (799-($lastTP[1]*799/$sot));?>px;
-											height:16px; line-height:15px; top:18px; width:<? echo (($lastTP[1]-$tp[1])*799/$sot);?>px; overflow:hidden; background:rgb(<?echo $lastTP[2];?>);'><?echo wikilink($lastTP[0])?></div>
-										<?}$lastTP = $tp;
+											<div style='position:absolute; text-align:center; border:1px solid; border-right:none; left:<?php echo (799-($lastTP[1]*799/$sot));?>px;
+											height:16px; line-height:15px; top:18px; width:<?php echo (($lastTP[1]-$tp[1])*799/$sot);?>px; overflow:hidden; background:rgb(<?php echo $lastTP[2];?>);'><?php echo wikilink($lastTP[0])?></div>
+										<?php }$lastTP = $tp;
 										}$lastTP=null;
 										
 										foreach($periods[3] as $tp){//tp=Time Period
 											if ($lastTP[1]<=$lastPeriod[2]){?>
-											<div style='position:absolute; text-align:center; border:1px solid; border-right:none; left:<?echo (799-($lastTP[1]*799/$sot));?>px; 
-											height:17px; line-height:15px; top:35px; width:<? echo (($lastTP[1]-$tp[1])*799/$sot);?>px; overflow:hidden; background:rgb(<?echo $lastTP[2];?>);'><?echo wikilink($lastTP[0])?></div>
-										<?}$lastTP = $tp;
+											<div style='position:absolute; text-align:center; border:1px solid; border-right:none; left:<?php echo (799-($lastTP[1]*799/$sot));?>px; 
+											height:17px; line-height:15px; top:35px; width:<?php echo (($lastTP[1]-$tp[1])*799/$sot);?>px; overflow:hidden; background:rgb(<?php echo $lastTP[2];?>);'><?php echo wikilink($lastTP[0])?></div>
+										<?php }$lastTP = $tp;
 										}$lastTP=null;
 										
 										foreach($periods[4] as $tp){//tp=Time Period
 											if ($lastTP[1]<=$lastPeriod[2]){?>
 																						
-												<div style='position:absolute; text-align:center; border:1px solid; border-right:none; left:<?echo (799-($lastTP[1]*799/$sot));?>px; height:25px;
-												font-size:smaller; line-height:25px; top:53px; width:<? echo (($lastTP[1]-$tp[1])*799/$sot);?>px; overflow:hidden; background:rgb(<?echo $lastTP[2];?>);'><?
+												<div style='position:absolute; text-align:center; border:1px solid; border-right:none; left:<?php echo (799-($lastTP[1]*799/$sot));?>px; height:25px;
+												font-size:smaller; line-height:25px; top:53px; width:<?php echo (($lastTP[1]-$tp[1])*799/$sot);?>px; overflow:hidden; background:rgb(<?php echo $lastTP[2];?>);'><?php 
 												echo wikilink($lastTP[0]); ?></div>
-											<?}$lastTP = $tp;
+											<?php }$lastTP = $tp;
 										}$lastTP=null;
 										?>										
 										</div Cenozoic>
 										<div id=CenozoicTimeScale style="position:absolute; top:310px; height:4px; right:-1px; width:799px;
 										border-left:1px black solid; line-height:3px; border:none; font-size:3px;">
-										<?
+										<?php 
 										for ($i=0;$i<$sot;$i+=1){?>
-											<div class="timelineDash<?echo ($i%10==0)?" tall":"";?>" style="right:<?echo ($i*799/$lastPeriod[2]);?>px";>&nbsp;</div>
-										<?}?>
+											<div class="timelineDash<?php echo ($i%10==0)?" tall":"";?>" style="right:<?php echo ($i*799/$lastPeriod[2]);?>px";>&nbsp;</div>
+										<?php }?>
 										</div>
 										<div id=CenozoicTimeLegend style="text-align:center;position:absolute; top:317px; height:14px;
-										right:-<?echo ((5*799/$lastPeriod[2])+1);?>px;
-										width:<?echo ((5*799/$lastPeriod[2])+799+100);?>px;	line-height:13px; border:none; font-size:9px;">
-											<?
+										right:-<?php echo ((5*799/$lastPeriod[2])+1);?>px;
+										width:<?php echo ((5*799/$lastPeriod[2])+799+100);?>px;	line-height:13px; border:none; font-size:9px;">
+											<?php 
 											for ($i=0;$i<$sot;$i+=10){?>
-												<div class="timelineLabel gap2" style="right:<?echo ($i*799/$lastPeriod[2]);?>px"><?echo $i;?></div> 
-											<?}?>
+												<div class="timelineLabel gap2" style="right:<?php echo ($i*799/$lastPeriod[2]);?>px"><?php echo $i;?></div> 
+											<?php }?>
 										</div>
 											
-								<?}?>
-							<?}?>
+								<?php }?>
+							<?php }?>
 							<div id=myaLegend style="text-align:center; width:799px; font-size:10px; position:absolute; top:333px;">Million years ago</div>
 							</div timeline_holder>
              </fieldset>
