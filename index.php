@@ -4,6 +4,7 @@ if (isset($_GET["Ma"])) $ma = htmlspecialchars(preg_replace("~[\s,]~","",$_GET["
 if (isset($_SERVER["HTTP_REFERER"])) $from = $_SERVER["HTTP_REFERER"];
 include("periods.dat");
 
+$i = 0;
 foreach ($periods as $p){
 	$i++;
 	foreach($p as $no => $P) {
