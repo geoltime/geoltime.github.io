@@ -1,11 +1,12 @@
-const eras = [
-  {name:"Hadean", start: 4567.17, col: "221,47,135"},
+const eons = [
+  {name: "Hadean", start: 4567.17, col: "221,47,135"},
 	{name: "Archean", start: 3800, col: "226,0,122"},
 	{name: "Proterozoic", start: 2500, col: "232,82,113"},
 	{name: "Phanerozoic", start: 542, col: "154,217,221"},
 	{name: "Present", start: 0}
 ];
-const eons = [
+const startOfTime = eons[0].start;
+const eras = [
 	{name: "Eoarchean", start: 3800, col: "221,47,135"},
 	{name: "Paleoarchean", start: 3600, col: "233,96,155"},
 	{name: "Mesoarchean", start: 3200, col: "238,135,172"},
