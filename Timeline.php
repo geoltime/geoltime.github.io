@@ -46,7 +46,7 @@ function wikilink($page, $title=null){
    
 
 </head>
-<body style="direction: ltr;" class="mediawiki ns--1 ltr page-Spezial_Beiträge"> 
+<body style="direction: ltr;" class="mediawiki ns--1 ltr page-Spezial_BeitrÃ¤ge"> 
   <div id="globalWrapper">
     <div id="column-content"> 
 
@@ -63,7 +63,7 @@ function wikilink($page, $title=null){
           </div>
 					<? if ($from) {?>
 					<div style="float:left; padding-left:2em; font-size:smaller">
-						<?if (preg_match('~^http://\w+\.wikipedia\.org~', $from)) {?>
+						<?if (preg_match('~^https?://\w+\.wikipedia\.org~', $from)) {?>
 						<a href='<? echo $from;?>' title="Return to referring page">&lt; Back to article</a><?}else{?>
 						<a href='<? echo $from;?>' title="Return to referring page">&lt; Back</a><?}?>
 					</div><?}
