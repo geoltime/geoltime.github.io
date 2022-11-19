@@ -1,0 +1,22 @@
+{
+	"name": "ms609/timescale",
+	"description": "Test geological timescale",
+
+	"require-dev": {
+		"ext-curl": "*",
+		"ext-dom": "*",
+		"ext-json": "*",
+		"ext-sqlite3": "*",
+		"phpunit/phpunit": "9.*"
+	},
+	"autoload": {
+		"psr-4": {
+			"App\\": "."
+		}
+	},
+	"autoload-dev": {
+		"psr-4": {
+			"App\\Test\\": "test"
+		}
+	}
+}
