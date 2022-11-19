@@ -42,13 +42,26 @@ if (ma != null) {
   let fromStage = (fromPeriod != null && fromPeriod.name == "Carboniferous") ?
    findTime(stages, maFrom) : null;
 
+  let toEon = findTime(eons, maTo);
+  let toEra = findTime(eras, maTo);
+  let toPeriod = findTime(periods, maTo);
+  let toSubP = findTime(subperiods, maTo);
+  let toEpoch = findTime(epochs, maTo);
+  let toStage = (toPeriod != null && toPeriod.name == "Carboniferous") ?
+   findTime(stages, maTo) : null;
+
   fsWhen.innerHTML = "<legend>When</legend>"
-    + ((fromEon == null) ? "Before formation of Earth" : (wikilink(fromEon.name) + " eon"))
-    + ((fromEra == null) ? "" : (", " + wikilink(fromEra.name) + " era"))
-    + ((fromPeriod == null) ? "" : (", " + wikilink(fromPeriod.name) + " period"))
-    + ((fromSubP == null) ? "" : (", " + wikilink(fromSubP.name) + " subperiod"))
-    + ((fromEpoch == null) ? "" : (", " + wikilink(fromEpoch.name) + " epoch"))
-    + ((fromStage == null) ? "" : (", " + wikilink(fromStage.name) + " stage"))
+    + (fromEon == null ? "Before formation of Earth" : (wikilink(fromEon.name) + " eon"))
+    + (fromEra == null ? "" : (", " + wikilink(fromEra.name) + " era"))
+    + (fromPeriod == null ? "" : (", " + wikilink(fromPeriod.name) + " period"))
+    + (fromSubP == null ? "" : (", " + wikilink(fromSubP.name) + " subperiod"))
+    + (fromEpoch == null ? "" : (", " + wikilink(fromEpoch.name) + " epoch"))
+    + (fromStage == null ? "" : (", " + wikilink(fromStage.name) + " stage"))
+    + (maTo == maFrom || toEon == null ? "" : (" to " + "..."
+
+
+      )
+      )
   ;
 
   document.getElementById("laden").insertBefore(
