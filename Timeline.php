@@ -1,22 +1,30 @@
 <?php
 
-if (isset($_GET["Ma"])) $ma = htmlspecialchars(preg_replace("~[\s,]~","",$_GET["Ma"]));
-if (isset($_SERVER["HTTP_REFERER"])) $from = $_SERVER["HTTP_REFERER"];
-include("periods.dat");
+$ma = isset($_GET["Ma"]) ? htmlspecialchars(preg_replace("~[\s,]~","",$_GET["Ma"])) : NULL;
+$from = isset($_SERVER["HTTP_REFERER"]) ? $_SERVER["HTTP_REFERER"] : NULL;
 
+include("periods.dat"); // for $periods, an array of arrays.
+// $periods[i][j] contains the _j_th time element of the _i_th subdivision of the timescale
+// i = 1 lists eons, i = 2, periods, i = 3, subperiods, etc.
+
+$i = 0;
 foreach ($periods as $p){
 	$i++;
 	foreach($p as $no => $P) {
-		if ($P[0] && $P[1]<$ma && !isset($period[$i])) {$period[$i] = Array($lastNo, $no);}
+		if ($P[0] && $P[1]<$ma && !isset($period[$i])) {
+			$period[$i] = Array($lastNo, $no);
+		}
 		$lastNo = $no;
-		if ($P[1]>0) $lastPeriod[$i] = $P[1];
+		if ($P[1] > 0) {
+			$lastPeriod[$i] = $P[1];
+		}
 	}
 }
 $lastPeriod[0] = $periods[1][2][1]; //"Start of time"
 
-function wikilink($page, $title=null){
-	if (!$title) $title=$page;
-	return "<a href='http://en.wikipedia.org/wiki/$page' title='$page page on Wikipedia'>$title</a>";
+function wikilink($page, $title=null) {
+	if (!$title) $title = $page;
+	return "<a href='https://en.wikipedia.org/wiki/$page' title='$page page on Wikipedia'>$title</a>";
 }
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
