@@ -1,0 +1,41 @@
+.timelineDash {
+  width: 1px;
+  overflow: hidden;
+  background: black;
+  height: 3px;
+  position: absolute;
+}
+.timelineLabel {
+  overflow: hidden;
+  position:absolute;
+}
+div#referrer {
+  float: left;
+  padding-left: 2em;
+  font-size: smaller;
+}
+div#timelineContent {
+   width: 799px;
+   height: 348px;
+   position: relative;
+   margin: 0;
+   padding:0;
+}
+div#allStartArrow, div#allEndArrow {
+  position: absolute;
+  height: 18px;
+  line-height: 18px;
+  padding-left: 1px;
+  font-style: italic;
+  border-color: #c33;
+}
+div#allStartArrow {
+  border-right: solid 1px;
+}
+div#allEndArrow {
+  border-left: solid 1px;
+}
+.gap0{width:<?echo ((500*799/$lastPeriod[0]));?>px}
+.gap1{width:<?echo ((50*799/$lastPeriod[1]));?>px}
+.gap2{width:<?echo ((10*799/$lastPeriod[2]));?>px}
+.tall{height: 6px;}

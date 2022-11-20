@@ -12,28 +12,7 @@
       The geological time scale
     </title>
     <link rel="stylesheet" href="style.css" />
-    <style type="text/css" media="screen,projection">
-      .timelineDash {
-        width: 1px;
-        overflow: hidden;
-        background: black;
-        height: 3px;
-        position: absolute;
-      }
-      .timelineLabel {
-        overflow: hidden;
-        position:absolute;
-      }
-      div#referrer {
-        float: left;
-        padding-left: 2em;
-        font-size: smaller;
-      }
-      .gap0{width:<?echo ((500*799/$lastPeriod[0]));?>px}
-      .gap1{width:<?echo ((50*799/$lastPeriod[1]));?>px}
-      .gap2{width:<?echo ((10*799/$lastPeriod[2]));?>px}
-      .tall{height: 6px;}
-    </style>
+    <link rel="stylesheet" href="timeline.css" />
   </head>
   <body style="direction: ltr;" class="mediawiki ns--1 ltr page-Spezial_Beiträge">
     <div id="globalWrapper">
@@ -55,23 +34,9 @@
 
             <!-- start content -->
             <div id="laden" style="clear: both;">
-              <fieldset id="fs_timeline">
+              <fieldset id="fsTimeline">
                 <legend>Timeline</legend>
-                <div id='timeline_holder' style='width:799px; height:348px; position:relative; margin:0; padding:0;'>
-                <?
-
-                if ($ma){
-                  preg_match("~([\d\.]+)([^\d\.]*([\d\.]+))?~", $ma, $range);
-                  $rangeStart = $range[1];
-                  $rangeEnd = $range[3];
-                  $ma = ($rangeEnd>$rangeStart)?$rangeEnd:$rangeStart;
-                ?>
-                  <div id='allStartArrow' style='position:absolute; right:<?echo ((799*$rangeStart/$sot)-1);?>px; border-right:solid #c33 1px; height:18px; line-height:18px; padding-left:1px; font-style:italic;'><?echo $rangeStart;?>&nbsp;Ma</div>
-                <? if ($rangeEnd){							?>
-                  <div id='allEndArrow' style='position:absolute; left:<?echo (799-(799*$rangeEnd/$sot));?>px; border-left:solid #c33 1px; height:18px; line-height:18px; padding-left:1px; font-style:italic;'><?echo $rangeEnd;?>&nbsp;Ma</div>
-                <? }
-                }
-                //Start the first timeline ?>
+                <div id="timelineContent">
                   <div id=allTime>
                   <?foreach($periods[1] as $tp){//tp=Time Period
                     if ($lastTP){?>

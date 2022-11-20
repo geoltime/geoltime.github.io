@@ -75,8 +75,23 @@ if (ma != null) {
 
   document.getElementById("laden").insertBefore(
     fsWhen,
-    document.getElementById("fs_timeline")
+    document.getElementById("fsTimeline")
   );
+
+  let allStart = document.createElement("div");
+  allStart.id = "allStartArrow";
+  allStart.innerHTML = maFrom + "&nbsp;Ma";
+  allStart.style.right = 799 * (fromMa / eons[0].start ) - 1 + "px";
+
+  let tlContent = document.getElementById("timelineContent")
+  tlContent.insertBefore(allStart, tlContent.firstChild);
+  if (toMa != fromMa) {
+    let allEnd = document.createElement("div");
+    allEnd.id = "allEndArrow";
+    allEnd.innerHTML = maTo + "&nbsp;Ma";
+    allEnd.style.left = (799 - (799 * toMa / eons[0].start )) + "px";
+  }
+
 }
 
 if (1 || document.referrer) {
