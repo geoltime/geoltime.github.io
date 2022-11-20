@@ -8,7 +8,7 @@ const ma = hasNumber(urlParams.get("Ma")) ? urlParams.get("Ma") :
 
 const range = ma.match(/([\d\.\s]+)[^\d\.\s]([\d\.\s]+)/);
 const maFrom = range ? Math.max(Number(range[1]), Number(range[2])) : ma;
-const maTo = range ? Math.max(Number(range[1]), Number(range[2])) : ma;
+const maTo = range ? Math.min(Number(range[1]), Number(range[2])) : ma;
 
 wikilink = function(article, title = null) {
   return "<a href='https://en.wikipedia.org/wiki/" + article +
@@ -57,11 +57,20 @@ if (ma != null) {
     + (fromSubP == null ? "" : (", " + wikilink(fromSubP.name) + " subperiod"))
     + (fromEpoch == null ? "" : (", " + wikilink(fromEpoch.name) + " epoch"))
     + (fromStage == null ? "" : (", " + wikilink(fromStage.name) + " stage"))
-    + (maTo == maFrom || toEon == null ? "" : (" to " + "..."
-
-
+    + (maTo == maFrom ||
+       toEon == null ||
+        toStage == fromStage ||
+         toEpoch == fromEpoch ? "" :
+    (
+      "<br /> to <br />"
+      + (toEon == fromEon ? "" : (wikilink(toEon.name) + " eon"))
+      + (toEra == null || toEra == fromEra ? "" : (", " + wikilink(toEra.name) + " era"))
+      + (toPeriod == null || toPeriod == fromPeriod ? "" : (", " + wikilink(toPeriod.name) + " period"))
+      + (toSubP == null || toSubP == fromSubP ? "" : (", " + wikilink(toSubP.name) + " subperiod"))
+      + (toEpoch == null || toEpoch == fromEpoch ? "" : (", " + wikilink(toEpoch.name) + " epoch"))
+      + (toStage == null || toStage == fromStage ? "" : (", " + wikilink(toStage.name) + " stage"))
       )
-      )
+    ).replace("<br />, ", "<br />")
   ;
 
   document.getElementById("laden").insertBefore(
