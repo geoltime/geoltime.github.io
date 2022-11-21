@@ -81,17 +81,59 @@ if (ma != null) {
   let allStart = document.createElement("div");
   allStart.id = "allStartArrow";
   allStart.innerHTML = maFrom + "&nbsp;Ma";
-  allStart.style.right = 799 * (fromMa / eons[0].start ) - 1 + "px";
+  allStart.style.right = 799 * (maFrom / eons[0].start ) - 1 + "px";
 
   let tlContent = document.getElementById("timelineContent")
-  tlContent.insertBefore(allStart, tlContent.firstChild);
-  if (toMa != fromMa) {
+  tlContent.append(allStart);
+  if (maTo != maFrom) {
     let allEnd = document.createElement("div");
     allEnd.id = "allEndArrow";
     allEnd.innerHTML = maTo + "&nbsp;Ma";
-    allEnd.style.left = (799 - (799 * toMa / eons[0].start )) + "px";
+    allEnd.style.left = (799 - (799 * maTo / eons[0].start )) + "px";
+    tlContent.append(allEnd)
   }
 
+  TimeBar = function(units, i) {
+    if (i >= units.length - 1) return;
+    let unit = units[i];
+    let nextUnit = units[Number(i) + 1];
+    let bar = document.createElement("div");
+    bar.classList.add("timeBar");
+    bar.style.left = (799 - (unit.start * 799 / eons[0].start)) + "px";
+    bar.style.width = ((unit.start - nextUnit.start) * 799 / eons[0].start) + "px";
+    bar.style.background = "rgb(" + unit.col + ")";
+    bar.innerHTML = wikilink(unit.name);
+    return bar;
+  }
+
+  let allTime = document.createElement("div");
+  allTime.id = "allTime";
+  for (i in eons) {
+    bar = TimeBar(eons, i);
+    if (bar) {
+      bar.style.top = "18px";
+      bar.style.height = "16px";
+      allTime.append(bar);
+    }
+  }
+  for (i in eras) {
+    bar = TimeBar(eras, i);
+    if (bar) {
+      bar.style.top = "35px";
+      bar.style.height = "26px";
+      bar.style.fontSize = "smaller";
+      if (!eras[i].name.match("erozoi")) {
+        bar.firstChild.innerHTML = bar.firstChild.innerHTML
+          .replace("archean", "arch-<br>ean")
+          .replace("zoic", "-<br>zoic");
+      } else {
+
+      }
+      allTime.append(bar);
+    }
+  }
+
+  tlContent.append(allTime);
 }
 
 if (1 || document.referrer) {

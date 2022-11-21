@@ -37,26 +37,9 @@
               <fieldset id="fsTimeline">
                 <legend>Timeline</legend>
                 <div id="timelineContent">
-                  <div id=allTime>
-                  <?foreach($periods[1] as $tp){//tp=Time Period
-                    if ($lastTP){?>
-                    <div style='position:absolute; text-align:center; border:1px solid; border-right:none; left:<?echo (799-($lastTP[1]*799/$sot));?>px;
-                      height:16px; line-height:15px; top:18px; width:<? echo (($lastTP[1]-$tp[1])*799/$sot);?>px; overflow:hidden; background:rgb(<?echo $lastTP[2];?>);'><?echo wikilink($lastTP[0])?></div>
-                  <?}$lastTP = $tp;}$lastTP=null;
+                  <div id="allTimeOld">
 
-                  foreach($periods[2] as $tp){//tp=Time Period
-                    if ($lastTP){
-                    if (strpos($lastTP[0],"erozoi") === FALSE){?>
 
-                    <div style='position:absolute; text-align:center; border:1px solid; border-right:none; left:<?echo (799-($lastTP[1]*799/$sot));?>px;
-                      height:26px; font-size:smaller; line-height:12px; top:35px; width:<? echo (($lastTP[1]-$tp[1])*799/$sot);?>px; overflow:hidden; background:rgb(<?echo $lastTP[2];?>);'><?
-                    echo wikilink($lastTP[0], str_replace("archean", "arch-<br>ean",str_replace("zoic", "-<br>zoic",$lastTP[0]))); ?></div>
-                  <?} else {?>
-
-                    <div style='position:absolute; text-align:center; border:1px solid; border-right:none; left:<?echo (799-($lastTP[1]*799/$sot));?>px;
-                      height:26px;	font-size:smaller; line-height:25px; top:35px; width:<? echo (($lastTP[1]-$tp[1])*799/$sot);?>px; overflow:hidden; background:rgb(<?echo $lastTP[2];?>);'><?
-                    echo wikilink($lastTP[0]); ?></div>
-                  <?}}$lastTP = $tp;}$lastTP=null;
 
                   foreach($periods[3] as $tp){//tp=Time Period
                     if ($lastTP){

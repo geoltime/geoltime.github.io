@@ -35,6 +35,16 @@ div#allStartArrow {
 div#allEndArrow {
   border-left: solid 1px;
 }
+div.timeBar {
+  position: absolute;
+  text-align: center;
+  border: 1px solid;
+  border-right: none;
+  overflow: hidden;
+  height: 16px;
+  line-height: 15px;
+}
+
 .gap0{width:<?echo ((500*799/$lastPeriod[0]));?>px}
 .gap1{width:<?echo ((50*799/$lastPeriod[1]));?>px}
 .gap2{width:<?echo ((10*799/$lastPeriod[2]));?>px}
