@@ -116,6 +116,7 @@ if (ma != null) {
       allTime.append(bar);
     }
   }
+
   for (i in eras) {
     bar = TimeBar(eras, i);
     if (bar) {
@@ -123,11 +124,35 @@ if (ma != null) {
       bar.style.height = "26px";
       bar.style.fontSize = "smaller";
       if (!eras[i].name.match("erozoi")) {
+        // Hyphenate
         bar.firstChild.innerHTML = bar.firstChild.innerHTML
-          .replace("archean", "arch-<br>ean")
-          .replace("zoic", "-<br>zoic");
-      } else {
+          .replace("archean", "arch-<br />ean")
+          .replace("zoic", "-<br />zoic");
+      }
+      allTime.append(bar);
+    }
+  }
 
+  for (i in periods) {
+    bar = TimeBar(periods, i);
+    if (bar) {
+      bar.style.height = "25px";
+      bar.style.top = "62px";
+      bar.style.fontSize = "smaller";
+      if (periods[i].start > 700) { // Phanerozoic or Ediacaran
+        bar.style.lineHeight = "12px";
+
+        // Hyphenate
+        bar.firstChild.innerHTML = bar.firstChild.innerHTML
+          .replace(/([^-])(\wian)/, "$1<br />-$2")
+          .replace(/([^m])ian/, "$1<br />-ian");
+      } else {
+        bar.style.lineHeight = "25px";
+        bar.firstChild.innerHTML = bar.firstChild.innerHTML
+          .replace("Camb", "&")
+          .replace("Cret", "K")
+          .substring(0, 1)
+          .replace("&", "&#x0404;");
       }
       allTime.append(bar);
     }
