@@ -1,11 +1,15 @@
 "use strict";
+// Define layout constant
+const width = 799;
+
+// User-defined constants
 const queryString = window.location.search;
 const urlParams = new URLSearchParams(queryString);
 function hasNumber(str) {
   return typeof str === "string" && str.match(/\d/) != null;
 }
 const ma = hasNumber(urlParams.get("Ma")) ? urlParams.get("Ma") :
-             hasNumber(urlParams.get("ma")) ? urlParams.get("ma") : null;
+           hasNumber(urlParams.get("ma")) ? urlParams.get("ma") : null;
 
 const range = ma.match(/([\d\.\s]+)[^\d\.\s]([\d\.\s]+)/);
 const maFrom = range ? Math.max(Number(range[1]), Number(range[2])) : ma;
@@ -83,7 +87,7 @@ if (ma != null) {
   allStart.id = "allStartArrow";
   allStart.classList.add("startArrow");
   allStart.innerHTML = maFrom + "&nbsp;Ma";
-  allStart.style.right = 799 * (maFrom / eons[0].start ) - 1 + "px";
+  allStart.style.right = width * (maFrom / eons[0].start ) - 1 + "px";
 
   var tlContent = document.getElementById("timelineContent")
   tlContent.append(allStart);
@@ -92,7 +96,7 @@ if (ma != null) {
     allEnd.id = "allEndArrow";
     allEnd.classList.add("endArrow");
     allEnd.innerHTML = maTo + "&nbsp;Ma";
-    allEnd.style.left = (799 - (799 * maTo / eons[0].start )) + "px";
+    allEnd.style.left = (width - (width * maTo / eons[0].start )) + "px";
     tlContent.append(allEnd)
   }
 
@@ -102,8 +106,8 @@ if (ma != null) {
     let nextUnit = units[Number(i) + 1];
     let bar = document.createElement("div");
     bar.classList.add("timeBar");
-    bar.style.left = (799 - (unit.start * 799 / barStart)) + "px";
-    bar.style.width = ((unit.start - nextUnit.start) * 799 / barStart) + "px";
+    bar.style.left = (width - (unit.start * width / barStart)) + "px";
+    bar.style.width = ((unit.start - nextUnit.start) * width / barStart) + "px";
     bar.style.background = "rgb(" + unit.col + ")";
     bar.innerHTML = wikilink(unit.name);
     return bar;
@@ -176,7 +180,7 @@ if (ma != null) {
     if (i % 500 == 0) {
       dash.classList.add("tall");
     }
-    dash.style.right = (i * 799 / eons[0].start) + "px";
+    dash.style.right = (i * width / eons[0].start) + "px";
     allTimeScale.append(dash);
   }
 
@@ -184,18 +188,18 @@ if (ma != null) {
   const showPhanerozoic = maFrom <= phanerozoic.start;
   if (showPhanerozoic) {
     allTimeScale.style.boxShadow = "inset -" +
-      (799 * phanerozoic.start / eons[0].start) + "px 0 0 #E99";
+      (width * phanerozoic.start / eons[0].start) + "px 0 0 #E99";
   }
 
   var allTimeLegend = EmptyDiv("allTimeLegend");
   allTimeLegend.classList.add("legendHolder");
-  allTimeLegend.style.right = "-" + ((799 / eons[0].start) + 1) + "px";
-  allTimeLegend.style.width = ((250 * 799 / eons[0].start) + 799 + 100) + "px";
+  allTimeLegend.style.right = "-" + ((width / eons[0].start) + 1) + "px";
+  allTimeLegend.style.width = ((250 * width / eons[0].start) + width + 100) + "px";
   for (let i = 0; i < eons[0].start; i += 500) {
     let lab = document.createElement("div");
     lab.classList.add("timelineLabel");
     lab.classList.add("gap0");
-    lab.style.right = (i * 799 / eons[0].start) + "px"
+    lab.style.right = (i * width / eons[0].start) + "px"
     lab.innerHTML = i;
     allTimeLegend.append(lab);
   }
@@ -208,7 +212,7 @@ if (ma != null) {
       pzStart.id = "pzStartArrow";
       pzStart.classList.add("startArrow");
       pzStart.innerHTML = maFrom + "&nbsp;Ma";
-      pzStart.style.right = 799 * (maFrom / phanerozoic.start ) - 1 + "px";
+      pzStart.style.right = width * (maFrom / phanerozoic.start ) - 1 + "px";
       pzStart.style.top = "115px";
       tlContent.append(pzStart);
 
@@ -217,7 +221,7 @@ if (ma != null) {
         pzEnd.id = "pzEndArrow";
         pzEnd.classList.add("endArrow");
         pzEnd.innerHTML = maTo + "&nbsp;Ma";
-        pzEnd.style.left = (799 - (799 * maTo / phanerozoic.start )) + "px";
+        pzEnd.style.left = (width - (width * maTo / phanerozoic.start )) + "px";
         pzEnd.style.top = "115px";
         tlContent.append(pzEnd)
       }
@@ -265,7 +269,7 @@ if (ma != null) {
         if (i % 50 == 0) {
           dash.classList.add("tall");
         }
-        dash.style.right = (i * 799 / phanerozoic.start) + "px";
+        dash.style.right = (i * width / phanerozoic.start) + "px";
         pzScale.append(dash);
       }
 
@@ -273,19 +277,19 @@ if (ma != null) {
       const showCenozoic = maFrom <= cenozoic.start
       if (showCenozoic) {
         pzScale.style.boxShadow = "inset -" +
-          (799 * cenozoic.start / phanerozoic.start) + "px 0 0 #E99";
+          (width * cenozoic.start / phanerozoic.start) + "px 0 0 #E99";
       }
 
       var pzLegend = EmptyDiv("pzLegend");
       pzLegend.style.top = "200px";
       pzLegend.classList.add("legendHolder");
-      pzLegend.style.right = "-" + ((799 / phanerozoic.start) + 1) + "px";
-      pzLegend.style.width = ((250 * 799 / phanerozoic.start) + 799 + 100) + "px";
+      pzLegend.style.right = "-" + ((width / phanerozoic.start) + 1) + "px";
+      pzLegend.style.width = ((250 * width / phanerozoic.start) + width + 100) + "px";
       for (let i = 0; i < phanerozoic.start; i += 100) {
         let lab = document.createElement("div");
         lab.classList.add("timelineLabel");
         lab.classList.add("gap0");
-        lab.style.right = (i * 799 / phanerozoic.start) + "px"
+        lab.style.right = (i * width / phanerozoic.start) + "px"
         lab.innerHTML = i;
         pzLegend.append(lab);
       }
@@ -296,7 +300,7 @@ if (ma != null) {
         czStart.id = "czStartArrow";
         czStart.classList.add("startArrow");
         czStart.innerHTML = maFrom + "&nbsp;Ma";
-        czStart.style.right = 799 * (maFrom / cenozoic.start ) - 1 + "px";
+        czStart.style.right = width * (maFrom / cenozoic.start ) - 1 + "px";
         czStart.style.top = "194px";
         tlContent.append(czStart);
 
@@ -305,7 +309,7 @@ if (ma != null) {
           czEnd.id = "czEndArrow";
           czEnd.classList.add("endArrow");
           czEnd.innerHTML = maTo + "&nbsp;Ma";
-          czEnd.style.left = (799 - (799 * maTo / cenozoic.start )) + "px";
+          czEnd.style.left = (width - (width * maTo / cenozoic.start )) + "px";
           czEnd.style.top = "194px";
           tlContent.append(czEnd);
         }
@@ -349,20 +353,20 @@ if (ma != null) {
           if (i % 10 == 0) {
             dash.classList.add("tall");
           }
-          dash.style.right = (i * 799 / cenozoic.start) + "px";
+          dash.style.right = (i * width / cenozoic.start) + "px";
           czScale.append(dash);
         }
 
         var czLegend = EmptyDiv("czLegend");
         czLegend.style.top = "317px";
         czLegend.classList.add("legendHolder");
-        czLegend.style.right = "-" + ((799 / cenozoic.start) + 1) + "px";
-        czLegend.style.width = ((250 * 799 / cenozoic.start) + 799 + 100) + "px";
+        czLegend.style.right = "-" + ((width / cenozoic.start) + 1) + "px";
+        czLegend.style.width = ((250 * width / cenozoic.start) + width + 100) + "px";
         for (let i = 0; i < cenozoic.start; i += 10) {
           let lab = document.createElement("div");
           lab.classList.add("timelineLabel");
           lab.classList.add("gap0");
-          lab.style.right = (i * 799 / cenozoic.start) + "px"
+          lab.style.right = (i * width / cenozoic.start) + "px"
           lab.innerHTML = i;
           czLegend.append(lab);
         }

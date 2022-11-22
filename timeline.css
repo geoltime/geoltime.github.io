@@ -19,16 +19,19 @@
 }
 
 .timelineDash {
-  width: 1px;
   overflow: hidden;
-  background: black;
-  height: 3px;
   position: absolute;
+  top: 0px;
+  width: 1px;
+  height: 3px;
+  border-left: 1px solid;
+  box-sizing: border-box;
 }
 
 .timelineLabel {
-  overflow: hidden;
   position: absolute;
+  top: 0px;
+  overflow: hidden;
 }
 
 div#referrer {
@@ -94,22 +97,10 @@ div.scale {
   height: 4px;
   width: 799px;
   right: -1px;
-  border-left: 1px black solid;
   border: none;
-}
-
-div#allTimeScale {
+  border-left: 1px black solid;
   z-index: 10;
-  width: 799px;
   line-height: 3px;
-  font-size: 3px;
-}
-
-div#phanerozoicScale {
-  z-index: 1;
-  background:#e99;
-  line-height: 1px;
-  font-size:1px;
 }
 
 div#allTimeLegend {
