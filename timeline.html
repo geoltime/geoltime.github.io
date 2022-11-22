@@ -36,32 +36,13 @@
             <div id="laden" style="clear: both;">
               <fieldset id="fsTimeline">
                 <legend>Timeline</legend>
-                <div id="timelineContent">
-
-                      <div id=CenozoicTimeScale style="position:absolute; top:310px; height:4px; right:-1px; width:799px;
-                      border-left:1px black solid; line-height:3px; border:none; font-size:3px;">
-                      <?
-                      for ($i=0;$i<$sot;$i+=1){?>
-                        <div class="timelineDash<?echo ($i%10==0)?" tall":"";?>" style="right:<?echo ($i*799/$lastPeriod[2]);?>px";>&nbsp;</div>
-                      <?}?>
-                      </div>
-                      <div id=CenozoicTimeLegend style="text-align:center;position:absolute; top:317px; height:14px;
-                      right:-<?echo ((5*799/$lastPeriod[2])+1);?>px;
-                      width:<?echo ((5*799/$lastPeriod[2])+799+100);?>px;	line-height:13px; border:none; font-size:9px;">
-                        <?
-                        for ($i=0;$i<$sot;$i+=10){?>
-                          <div class="timelineLabel gap2" style="right:<?echo ($i*799/$lastPeriod[2]);?>px"><?echo $i;?></div>
-                        <?}?>
-                      </div>
-
-                <div id=myaLegend style="text-align:center; width:799px; font-size:10px; position:absolute; top:333px;">Million years ago</div>
-                </div timeline_holder>
-               </fieldset>
+                <div id="timelineContent"></div>
+              </fieldset>
             </div>
             <div id=sources style="text-align:right; font-size:smaller; font-style:italic">
-              Compiled using data from <a href="http://stratigraphy.org"
+              Compiled using data from <a href="https://stratigraphy.org"
               title="International commission for stratigraphy">the International Commission on Stratigraphy</a>. <a href='http://en.wikipedia.org/wiki/User_talk:Smith609/Timeline' title="Talk page for this page">Discuss</a> this implementation by <a
-              href="http://en.wikipedia.org/wiki/User:Smith609" title="Martin Smith's Wikipedia user page">Martin Smith</a>.
+              href="http://en.wikipedia.org/wiki/User:Smith609" title="Martin Smith's Wikipedia user page">Martin R. Smith</a>.
 
               <br><span xmlns:dc="https://purl.org/dc/elements/1.1/" href="https://purl.org/dc/dcmitype/InteractiveResource" property="dc:title" rel="dc:type">Geological timescale</span> is licensed under a
               <a rel="license" href="https://creativecommons.org/licenses/by-sa/3.0/">Creative Commons Attribution-Share Alike 4.0 Unported License</a>.&nbsp;<a rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/"><img alt="Creative Commons License" style="border-width:0" src="cc4.0.png"/></a>.

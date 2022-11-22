@@ -199,6 +199,9 @@ if (ma != null) {
     lab.innerHTML = i;
     allTimeLegend.append(lab);
   }
+  var myaLegend = EmptyDiv("myaLegend")
+  myaLegend.innerHTML = "Million years ago";
+  myaLegend.style.top = "111px";
 
   if (showPhanerozoic) {
       let pzStart = document.createElement("div");
@@ -286,6 +289,7 @@ if (ma != null) {
         lab.innerHTML = i;
         pzLegend.append(lab);
       }
+      myaLegend.style.top = "222px";
 
       if (showCenozoic) {
         let czStart = document.createElement("div");
@@ -338,32 +342,32 @@ if (ma != null) {
 
         var czScale = EmptyDiv("czScale");
         czScale.classList.add("scale");
-        czScale.style.top = "194px";
-        for (let i = 0; i < phanerozoic.start; i += 10) {
+        czScale.style.top = "310px";
+        for (let i = 0; i < cenozoic.start; i += 1) {
           let dash = EmptyDiv();
           dash.classList.add("timelineDash");
-          if (i % 50 == 0) {
+          if (i % 10 == 0) {
             dash.classList.add("tall");
           }
-          dash.style.right = (i * 799 / phanerozoic.start) + "px";
+          dash.style.right = (i * 799 / cenozoic.start) + "px";
           czScale.append(dash);
         }
 
         var czLegend = EmptyDiv("czLegend");
-        czLegend.style.top = "200px";
+        czLegend.style.top = "317px";
         czLegend.classList.add("legendHolder");
-        czLegend.style.right = "-" + ((799 / phanerozoic.start) + 1) + "px";
-        czLegend.style.width = ((250 * 799 / phanerozoic.start) + 799 + 100) + "px";
-        for (let i = 0; i < phanerozoic.start; i += 100) {
+        czLegend.style.right = "-" + ((799 / cenozoic.start) + 1) + "px";
+        czLegend.style.width = ((250 * 799 / cenozoic.start) + 799 + 100) + "px";
+        for (let i = 0; i < cenozoic.start; i += 10) {
           let lab = document.createElement("div");
           lab.classList.add("timelineLabel");
           lab.classList.add("gap0");
-          lab.style.right = (i * 799 / phanerozoic.start) + "px"
+          lab.style.right = (i * 799 / cenozoic.start) + "px"
           lab.innerHTML = i;
           czLegend.append(lab);
         }
-
-      }
+        myaLegend.style.top = "333px";
+     }
   }
 }
 tlContent.appendChild(allTime);
@@ -376,6 +380,7 @@ tlContent.appendChild(allTimeLegend)
 tlContent.appendChild(cz);
 tlContent.appendChild(czScale);
 tlContent.appendChild(czLegend);
+tlContent.appendChild(myaLegend);
 //tlContent.append(cz);
 
 if (document.referrer) {

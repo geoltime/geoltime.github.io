@@ -68,12 +68,13 @@ div.startArrow, div.endArrow {
 
 div.startArrow {
   border-right: solid 1px;
+  border-color: #c33;
 }
 
 div.endArrow {
   border-left: solid 1px;
+  border-color: #c33;
 }
-
 
 div#allTimeBar {
   position: absolute;
@@ -129,6 +130,13 @@ div.timeBar {
   overflow: hidden;
   height: 16px;
   line-height: 15px;
+}
+
+div#myaLegend {
+  text-align: center;
+  width: 799px;
+  font-size: 10px;
+  position: absolute;
 }
 
 .gap0 {

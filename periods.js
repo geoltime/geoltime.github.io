@@ -47,7 +47,7 @@ const periods = [
 const subperiods = [
 	{name: "Terreneuvian", start: 541.0, col: "159,184,133"},
 	{name: "Cambrian Series 2", start: 521, col: "171,196,146"},
-	{name: "Cambrian Series 3", start: 509, col: "171,196,146"},
+	{name: "Miaolingian", start: 509, col: "171,196,146"},
 	{name: "Furongian", start: 497, col: ""},
 	{name: "Early Ordovician", start: 485.4, col: "0,158,126"},
 	{name: "Middle Ordovician", start: 470.0, col: "71,179,147"},
@@ -86,7 +86,7 @@ const epochs = [
 	{name: "Cambrian Stage 2", start: 529, col: ""},
 	{name: "Cambrian Stage 3", start: 521, col: ""},
 	{name: "Cambrian Stage 4", start: 514, col: ""},
-	{name: "Cambrian Stage 5", start: 509, col: ""},
+	{name: "Wuliuan", start: 509, col: ""},
 	{name: "Drumian", start: 504.5, col: ""},
 	{name: "Guzhangian", start: 500.5, col: ""},
 	{name: "Paibian", start: 497, col: ""},
@@ -175,8 +175,11 @@ const epochs = [
 	{name: "Piacenzian", start: 3.6, col: ""},
 	{name: "Gelasian", start: 2.588, col: ""},
 	{name: "Calabrian", start: 1.806, col: ""},
-	{name: "Middle Pleistocene", start: 0.781, col: ""},
-	{name: "Late Pleistocene", start: 0.126, col: ""},
+	{name: "Chibanian", start: 0.774, col: ""},
+	{name: "Stage 4", start: 0.129, col: ""},
+	{name: "Greenlandian", start: 0.01143, col: ""},
+	{name: "Northgrippian", start: 0.008, col: ""},
+	{name: "Meghalayan", start: 0.004, col: ""},
 	{name: "Present", start: 0}
 ];
 const stages = [
