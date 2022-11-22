@@ -188,7 +188,8 @@ if (ma != null) {
   }
 
   var allTimeLegend = EmptyDiv("allTimeLegend");
-  allTimeLegend.style.right = "-" + ((250 * 799 / eons[0].start) + 1) + "px";
+  allTimeLegend.classList.add("legendHolder");
+  allTimeLegend.style.right = "-" + ((799 / eons[0].start) + 1) + "px";
   allTimeLegend.style.width = ((250 * 799 / eons[0].start) + 799 + 100) + "px";
   for (let i = 0; i < eons[0].start; i += 500) {
     let lab = document.createElement("div");
@@ -265,8 +266,17 @@ if (ma != null) {
         pzScale.append(dash);
       }
 
+      const cenozoic = eras[9];
+      const showCenozoic = maFrom <= cenozoic.start
+      if (showCenozoic) {
+        pzScale.style.boxShadow = "inset -" +
+          (799 * cenozoic.start / phanerozoic.start) + "px 0 0 #E99";
+      }
+
       var pzLegend = EmptyDiv("pzLegend");
-      pzLegend.style.right = "-" + ((250 * 799 / phanerozoic.start) + 1) + "px";
+      pzLegend.style.top = "200px";
+      pzLegend.classList.add("legendHolder");
+      pzLegend.style.right = "-" + ((799 / phanerozoic.start) + 1) + "px";
       pzLegend.style.width = ((250 * 799 / phanerozoic.start) + 799 + 100) + "px";
       for (let i = 0; i < phanerozoic.start; i += 100) {
         let lab = document.createElement("div");
@@ -277,25 +287,99 @@ if (ma != null) {
         pzLegend.append(lab);
       }
 
-      const cenozoic = eras[9];
-      const showCenozoic = maFrom <= cenozoic.start
       if (showCenozoic) {
-        var cz;
-        var czScale;
-        var czLegend;
+        let czStart = document.createElement("div");
+        czStart.id = "czStartArrow";
+        czStart.classList.add("startArrow");
+        czStart.innerHTML = maFrom + "&nbsp;Ma";
+        czStart.style.right = 799 * (maFrom / phanerozoic.start ) - 1 + "px";
+        czStart.style.top = "115px";
+        tlContent.append(czStart);
+
+        if (maTo != maFrom) {
+          let czEnd = document.createElement("div");
+          czEnd.id = "czEndArrow";
+          czStart.classList.add("endArrow");
+          czEnd.innerHTML = maTo + "&nbsp;Ma";
+          czEnd.style.left = (799 - (799 * maTo / phanerozoic.start )) + "px";
+          czEnd.style.top = "115px";
+          tlContent.append(czEnd)
+        }
+
+        var cz = document.createElement("div");
+        cz.id = "Phanerozoic";
+        cz.classList.add("timelineHolder");
+        cz.style.top = "115px";
+
+        let phzBar = TimeBar(eons, 3, phanerozoic.start);
+        phzBar.classList.add("topBar");
+        cz.append(phzBar);
+
+        for (let i = 0; i < eras.length; i++) {
+          let bar = TimeBar(eras, i, phanerozoic.start);
+          if (bar && eras[i].start <= phanerozoic.start) {
+            bar.style.top = "35px";
+            bar.style.height = "16px";
+            cz.append(bar);
+          }
+        }
+
+        for (let i = 0; i < periods.length; i++) {
+          let bar = TimeBar(periods, i, phanerozoic.start);
+          if (bar && periods[i].start <= phanerozoic.start) {
+            bar.style.height = "25px";
+            bar.style.top = "52px";
+            bar.style.fontSize = "smaller";
+            bar.style.lineHeight = "25px";
+            if (periods[i].name == "Neogene") {
+              bar.firstChild.innerHTML = bar.firstChild.innerHTML
+                .replace("gene", "-<br />gene");
+              bar.style.lineHeight = "12px";
+            }
+            cz.append(bar);
+          }
+        }
+
+        var czScale = EmptyDiv("czScale");
+        czScale.classList.add("scale");
+        czScale.style.top = "194px";
+        for (let i = 0; i < phanerozoic.start; i += 10) {
+          let dash = EmptyDiv();
+          dash.classList.add("timelineDash");
+          if (i % 50 == 0) {
+            dash.classList.add("tall");
+          }
+          dash.style.right = (i * 799 / phanerozoic.start) + "px";
+          czScale.append(dash);
+        }
+
+        var czLegend = EmptyDiv("czLegend");
+        czLegend.style.top = "200px";
+        czLegend.classList.add("legendHolder");
+        czLegend.style.right = "-" + ((799 / phanerozoic.start) + 1) + "px";
+        czLegend.style.width = ((250 * 799 / phanerozoic.start) + 799 + 100) + "px";
+        for (let i = 0; i < phanerozoic.start; i += 100) {
+          let lab = document.createElement("div");
+          lab.classList.add("timelineLabel");
+          lab.classList.add("gap0");
+          lab.style.right = (i * 799 / phanerozoic.start) + "px"
+          lab.innerHTML = i;
+          czLegend.append(lab);
+        }
+
       }
   }
 }
-tlContent.append(allTime);
-tlContent.append(allTimeScale);
-tlContent.append(allTimeLegend);
-tlContent.append(pz);
-tlContent.append(pzScale);
-tlContent.append(pzLegend);
-tlContent.append(allTimeLegend)
-tlContent.append(cz);
-tlContent.append(czScale);
-tlContent.append(czLegend);
+tlContent.appendChild(allTime);
+tlContent.appendChild(allTimeScale);
+tlContent.appendChild(allTimeLegend);
+tlContent.appendChild(pz);
+tlContent.appendChild(pzScale);
+tlContent.appendChild(pzLegend);
+tlContent.appendChild(allTimeLegend)
+tlContent.appendChild(cz);
+tlContent.appendChild(czScale);
+tlContent.appendChild(czLegend);
 //tlContent.append(cz);
 
 if (document.referrer) {

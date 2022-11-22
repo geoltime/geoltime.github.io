@@ -38,19 +38,6 @@
                 <legend>Timeline</legend>
                 <div id="timelineContent">
 
-                    <div id=PhanerozoicTimeLegend style="text-align:center;position:absolute; top:200px; height:14px;
-                    right:-<?echo ((25*799/$lastPeriod[1])+1);?>px;
-                    width:<?echo ((25*799/$lastPeriod[1])+799+100);?>px;	line-height:13px; border:none; font-size:9px;">
-                      <?
-                      for ($i=0;$i<$sot;$i+=100){?>
-                        <div class="timelineLabel gap1" style="right:<?echo ($i*799/$lastPeriod[1]);?>px"><?echo $i;?></div>
-                      <?}?>
-                    </div>
-
-                    <?
-                    //End of second timeline.  Do we need a third for the Cenozoic?
-
-                    if (!$ma || $ma <= $lastPeriod[2]){?>
                       <div id=CeonzoicScale style="z-index:1; position:absolute; top:194px; height:4px; right:-1px; width:<?echo ($lastPeriod[2]*799/$sot);?>px;
                         border-left:1px black solid; line-height:1px; border:none; background-color:#e99; font-size:1px;">&nbsp;</div>
                       <?

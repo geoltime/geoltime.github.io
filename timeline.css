@@ -2,6 +2,15 @@
   position: relative;
 }
 
+.legendHolder {
+  text-align: center;
+  position: absolute;
+  height: 14px;
+  line-height: 13px;
+  border: none;
+  font-size: 9px;
+}
+
 .topBar {
   position: absolute;
   top: 18px;
