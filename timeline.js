@@ -138,6 +138,9 @@ if (ma != null) {
         bar.firstChild.innerHTML = bar.firstChild.innerHTML
           .replace("archean", "arch-<br />ean")
           .replace("zoic", "-<br />zoic");
+        bar.style.lineHeight = "12px";
+      } else {
+        bar.style.lineHeight = "25px";
       }
       allTime.append(bar);
     }
@@ -154,8 +157,9 @@ if (ma != null) {
 
         // Hyphenate
         bar.firstChild.innerHTML = bar.firstChild.innerHTML
+          .replace(/([^m])ian/, "$1<br />-ian")
           .replace(/([^-])(\wian)/, "$1<br />-$2")
-          .replace(/([^m])ian/, "$1<br />-ian");
+        ;
       } else {
         bar.style.lineHeight = "25px";
         bar.firstChild.innerHTML = bar.firstChild.innerHTML
@@ -198,7 +202,6 @@ if (ma != null) {
   var allTimeLegend = EmptyDiv("allTimeLegend");
   allTimeLegend.classList.add("legendHolder");
   allTimeLegend.style.top = "95px";
-  allTimeLegend.style.right = "-" + ((width / eons[0].start) + 1) + "px";
   for (let i = 0; i < eons[0].start; i += 500) {
     let lab = document.createElement("div");
     lab.classList.add("timelineLabel");
@@ -286,7 +289,6 @@ if (ma != null) {
       var pzLegend = EmptyDiv("pzLegend");
       pzLegend.style.top = "200px";
       pzLegend.classList.add("legendHolder");
-      pzLegend.style.right = "-" + ((width / phanerozoic.start) + 1) + "px";
       for (let i = 0; i < phanerozoic.start; i += 100) {
         let lab = document.createElement("div");
         lab.classList.add("timelineLabel");
@@ -302,7 +304,7 @@ if (ma != null) {
         czStart.classList.add("startArrow");
         czStart.innerHTML = maFrom + "&nbsp;Ma";
         czStart.style.right = width * (maFrom / cenozoic.start ) - 1 + "px";
-        czStart.style.top = "194px";
+        czStart.style.top = "230px";
         tlContent.append(czStart);
 
         if (maTo != maFrom) {
@@ -311,7 +313,7 @@ if (ma != null) {
           czEnd.classList.add("endArrow");
           czEnd.innerHTML = maTo + "&nbsp;Ma";
           czEnd.style.left = (width - (width * maTo / cenozoic.start )) + "px";
-          czEnd.style.top = "194px";
+          czEnd.style.top = "230px";
           tlContent.append(czEnd);
         }
 
@@ -361,7 +363,6 @@ if (ma != null) {
         var czLegend = EmptyDiv("czLegend");
         czLegend.style.top = "317px";
         czLegend.classList.add("legendHolder");
-        czLegend.style.right = "-" + ((width / cenozoic.start) + 1) + "px";
         for (let i = 0; i < cenozoic.start; i += 10) {
           let lab = document.createElement("div");
           lab.classList.add("timelineLabel");

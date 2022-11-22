@@ -5,6 +5,7 @@
 .legendHolder {
   text-align: center;
   position: absolute;
+  right: 0px;
   height: 14px;
   line-height: 13px;
   border: none;
@@ -31,7 +32,9 @@
 .timelineLabel {
   position: absolute;
   top: 0px;
-  overflow: hidden;
+  overflow: visible;
+  margin-right: -64px;
+  width: 128px;
 }
 
 div#referrer {
@@ -97,7 +100,6 @@ div.scale {
   width: 799px;
   right: -1px;
   border: none;
-  border-left: 1px black solid;
   border-top: 1px black solid;
   box-sizing: border-box;
   z-index: 10;
@@ -119,21 +121,6 @@ div#myaLegend {
   width: 799px;
   font-size: 10px;
   position: absolute;
-}
-
-.gap0 {
-  width: <?echo ((500*799/$lastPeriod[0]));
-  ?>px
-}
-
-.gap1 {
-  width: <?echo ((50*799/$lastPeriod[1]));
-  ?>px
-}
-
-.gap2 {
-  width: <?echo ((10*799/$lastPeriod[2]));
-  ?>px
 }
 
 .tall {
