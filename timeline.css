@@ -93,24 +93,15 @@ div#allTimeBar {
 
 div.scale {
   position: absolute;
-  top: 89px;
-  height: 4px;
+  height: 5px;
   width: 799px;
   right: -1px;
   border: none;
   border-left: 1px black solid;
+  border-top: 1px black solid;
+  box-sizing: border-box;
   z-index: 10;
   line-height: 3px;
-}
-
-div#allTimeLegend {
-  text-align: center;
-  position: absolute;
-  top: 95px;
-  height: 14px;
-  line-height: 13px;
-  border: none;
-  font-size: 9px;
 }
 
 div.timeBar {

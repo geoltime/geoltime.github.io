@@ -110,6 +110,9 @@ if (ma != null) {
     bar.style.width = ((unit.start - nextUnit.start) * width / barStart) + "px";
     bar.style.background = "rgb(" + unit.col + ")";
     bar.innerHTML = wikilink(unit.name);
+    if (i == units.length - 2) {
+      bar.style.boxShadow = "black -1px 0px 0px inset";
+    }
     return bar;
   }
 
@@ -174,6 +177,7 @@ if (ma != null) {
 
   var allTimeScale = EmptyDiv("allTimeScale");
   allTimeScale.classList.add("scale");
+  allTimeScale.style.top = "88px";
   for (let i = 0; i < eons[0].start; i += 100) {
     let dash = EmptyDiv();
     dash.classList.add("timelineDash");
@@ -193,12 +197,11 @@ if (ma != null) {
 
   var allTimeLegend = EmptyDiv("allTimeLegend");
   allTimeLegend.classList.add("legendHolder");
+  allTimeLegend.style.top = "95px";
   allTimeLegend.style.right = "-" + ((width / eons[0].start) + 1) + "px";
-  allTimeLegend.style.width = ((250 * width / eons[0].start) + width + 100) + "px";
   for (let i = 0; i < eons[0].start; i += 500) {
     let lab = document.createElement("div");
     lab.classList.add("timelineLabel");
-    lab.classList.add("gap0");
     lab.style.right = (i * width / eons[0].start) + "px"
     lab.innerHTML = i;
     allTimeLegend.append(lab);
@@ -262,7 +265,7 @@ if (ma != null) {
 
       var pzScale = EmptyDiv("pzScale");
       pzScale.classList.add("scale");
-      pzScale.style.top = "194px";
+      pzScale.style.top = "193px";
       for (let i = 0; i < phanerozoic.start; i += 10) {
         let dash = EmptyDiv();
         dash.classList.add("timelineDash");
@@ -284,11 +287,9 @@ if (ma != null) {
       pzLegend.style.top = "200px";
       pzLegend.classList.add("legendHolder");
       pzLegend.style.right = "-" + ((width / phanerozoic.start) + 1) + "px";
-      pzLegend.style.width = ((250 * width / phanerozoic.start) + width + 100) + "px";
       for (let i = 0; i < phanerozoic.start; i += 100) {
         let lab = document.createElement("div");
         lab.classList.add("timelineLabel");
-        lab.classList.add("gap0");
         lab.style.right = (i * width / phanerozoic.start) + "px"
         lab.innerHTML = i;
         pzLegend.append(lab);
@@ -346,7 +347,7 @@ if (ma != null) {
 
         var czScale = EmptyDiv("czScale");
         czScale.classList.add("scale");
-        czScale.style.top = "310px";
+        czScale.style.top = "309px";
         for (let i = 0; i < cenozoic.start; i += 1) {
           let dash = EmptyDiv();
           dash.classList.add("timelineDash");
@@ -361,11 +362,9 @@ if (ma != null) {
         czLegend.style.top = "317px";
         czLegend.classList.add("legendHolder");
         czLegend.style.right = "-" + ((width / cenozoic.start) + 1) + "px";
-        czLegend.style.width = ((250 * width / cenozoic.start) + width + 100) + "px";
         for (let i = 0; i < cenozoic.start; i += 10) {
           let lab = document.createElement("div");
           lab.classList.add("timelineLabel");
-          lab.classList.add("gap0");
           lab.style.right = (i * width / cenozoic.start) + "px"
           lab.innerHTML = i;
           czLegend.append(lab);
