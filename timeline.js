@@ -212,7 +212,7 @@ if (ma != null) {
       if (maTo != maFrom) {
         let pzEnd = document.createElement("div");
         pzEnd.id = "pzEndArrow";
-        pzStart.classList.add("endArrow");
+        pzEnd.classList.add("endArrow");
         pzEnd.innerHTML = maTo + "&nbsp;Ma";
         pzEnd.style.left = (799 - (799 * maTo / phanerozoic.start )) + "px";
         pzEnd.style.top = "115px";
@@ -292,50 +292,46 @@ if (ma != null) {
         czStart.id = "czStartArrow";
         czStart.classList.add("startArrow");
         czStart.innerHTML = maFrom + "&nbsp;Ma";
-        czStart.style.right = 799 * (maFrom / phanerozoic.start ) - 1 + "px";
-        czStart.style.top = "115px";
+        czStart.style.right = 799 * (maFrom / cenozoic.start ) - 1 + "px";
+        czStart.style.top = "194px";
         tlContent.append(czStart);
 
         if (maTo != maFrom) {
           let czEnd = document.createElement("div");
           czEnd.id = "czEndArrow";
-          czStart.classList.add("endArrow");
+          czEnd.classList.add("endArrow");
           czEnd.innerHTML = maTo + "&nbsp;Ma";
-          czEnd.style.left = (799 - (799 * maTo / phanerozoic.start )) + "px";
-          czEnd.style.top = "115px";
-          tlContent.append(czEnd)
+          czEnd.style.left = (799 - (799 * maTo / cenozoic.start )) + "px";
+          czEnd.style.top = "194px";
+          tlContent.append(czEnd);
         }
 
         var cz = document.createElement("div");
         cz.id = "Phanerozoic";
         cz.classList.add("timelineHolder");
-        cz.style.top = "115px";
+        cz.style.top = "230px";
 
-        let phzBar = TimeBar(eons, 3, phanerozoic.start);
-        phzBar.classList.add("topBar");
-        cz.append(phzBar);
+        let czBar = TimeBar(eras, 9, cenozoic.start);
+        czBar.classList.add("topBar");
+        cz.append(czBar);
 
-        for (let i = 0; i < eras.length; i++) {
-          let bar = TimeBar(eras, i, phanerozoic.start);
-          if (bar && eras[i].start <= phanerozoic.start) {
+        for (let i = 0; i < periods.length; i++) {
+          let bar = TimeBar(periods, i, cenozoic.start);
+          if (bar && periods[i].start <= cenozoic.start) {
             bar.style.top = "35px";
-            bar.style.height = "16px";
+            bar.style.height = "17px";
+            bar.style.lineHeight = "16px";
             cz.append(bar);
           }
         }
 
-        for (let i = 0; i < periods.length; i++) {
-          let bar = TimeBar(periods, i, phanerozoic.start);
-          if (bar && periods[i].start <= phanerozoic.start) {
+        for (let i = 0; i < subperiods.length; i++) {
+          let bar = TimeBar(subperiods, i, cenozoic.start);
+          if (bar && subperiods[i].start <= cenozoic.start) {
             bar.style.height = "25px";
-            bar.style.top = "52px";
+            bar.style.top = "53px";
             bar.style.fontSize = "smaller";
             bar.style.lineHeight = "25px";
-            if (periods[i].name == "Neogene") {
-              bar.firstChild.innerHTML = bar.firstChild.innerHTML
-                .replace("gene", "-<br />gene");
-              bar.style.lineHeight = "12px";
-            }
             cz.append(bar);
           }
         }

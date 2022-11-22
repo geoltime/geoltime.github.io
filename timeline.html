@@ -38,44 +38,6 @@
                 <legend>Timeline</legend>
                 <div id="timelineContent">
 
-                      <div id=CeonzoicScale style="z-index:1; position:absolute; top:194px; height:4px; right:-1px; width:<?echo ($lastPeriod[2]*799/$sot);?>px;
-                        border-left:1px black solid; line-height:1px; border:none; background-color:#e99; font-size:1px;">&nbsp;</div>
-                      <?
-                      $sot = $lastPeriod[2];
-                      if ($ma){
-                      ?>
-                        <div id='CenozoicStartArrow' style='position:absolute; top:230px; right:<?echo ((799*$rangeStart/$sot)-1);?>px; border-right:solid #c33 1px; height:18px; line-height:18px; padding-left:1px; font-style:italic;'><?echo $rangeStart;?>&nbsp;Ma</div>
-                      <? if ($rangeEnd){							?>
-                        <div id='CenozoicEndArrow' style='position:absolute; top:230px; left:<?echo (799-(799*$rangeEnd/$sot));?>px; border-left:solid #c33 1px; height:18px; line-height:18px; padding-left:1px; font-style:italic;'><?echo $rangeEnd;?>&nbsp;Ma</div>
-                      <? }
-                      }
-                      ?>
-                      <div id=Cenozoic style="top:230px; position:relative;">
-                      <?
-                      foreach($periods[2] as $tp){//tp=Time Period
-                        if ($lastTP[1]<=$lastPeriod[2]){?>
-                        <div style='position:absolute; text-align:center; border:1px solid; border-right:none; left:<?echo (799-($lastTP[1]*799/$sot));?>px;
-                        height:16px; line-height:15px; top:18px; width:<? echo (($lastTP[1]-$tp[1])*799/$sot);?>px; overflow:hidden; background:rgb(<?echo $lastTP[2];?>);'><?echo wikilink($lastTP[0])?></div>
-                      <?}$lastTP = $tp;
-                      }$lastTP=null;
-
-                      foreach($periods[3] as $tp){//tp=Time Period
-                        if ($lastTP[1]<=$lastPeriod[2]){?>
-                        <div style='position:absolute; text-align:center; border:1px solid; border-right:none; left:<?echo (799-($lastTP[1]*799/$sot));?>px;
-                        height:17px; line-height:15px; top:35px; width:<? echo (($lastTP[1]-$tp[1])*799/$sot);?>px; overflow:hidden; background:rgb(<?echo $lastTP[2];?>);'><?echo wikilink($lastTP[0])?></div>
-                      <?}$lastTP = $tp;
-                      }$lastTP=null;
-
-                      foreach($periods[4] as $tp){//tp=Time Period
-                        if ($lastTP[1]<=$lastPeriod[2]){?>
-
-                          <div style='position:absolute; text-align:center; border:1px solid; border-right:none; left:<?echo (799-($lastTP[1]*799/$sot));?>px; height:25px;
-                          font-size:smaller; line-height:25px; top:53px; width:<? echo (($lastTP[1]-$tp[1])*799/$sot);?>px; overflow:hidden; background:rgb(<?echo $lastTP[2];?>);'><?
-                          echo wikilink($lastTP[0]); ?></div>
-                        <?}$lastTP = $tp;
-                      }$lastTP=null;
-                      ?>
-                      </div Cenozoic>
                       <div id=CenozoicTimeScale style="position:absolute; top:310px; height:4px; right:-1px; width:799px;
                       border-left:1px black solid; line-height:3px; border:none; font-size:3px;">
                       <?
@@ -92,8 +54,6 @@
                         <?}?>
                       </div>
 
-                  <?}?>
-                <?}?>
                 <div id=myaLegend style="text-align:center; width:799px; font-size:10px; position:absolute; top:333px;">Million years ago</div>
                 </div timeline_holder>
                </fieldset>
