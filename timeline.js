@@ -158,6 +158,26 @@ if (ma != null) {
     }
   }
 
+  EmptyDiv = function(id = null) {
+    let div = document.createElement("div");
+    if (id) div.id = id;
+    div.innerHTML = "&nbsp;"
+    return div;
+  }
+
+  allTime.append(EmptyDiv("allTimeBar"));
+  allTimeScale = EmptyDiv("allTimeScale");
+  for (let i = 0; i < eons[0].start; i += 100) {
+    let dash = EmptyDiv();
+    dash.classList.add("timelineDash");
+    if (i % 500 == 0) {
+      dash.classList.add("tall");
+    }
+    dash.style.right = (i * 799 / eons[0]) + "px";
+    allTimeScale.append(dash);
+  }
+  allTime.append(allTimeScale);
+
   tlContent.append(allTime);
 }
 

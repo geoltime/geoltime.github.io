@@ -21,6 +21,19 @@ div#timelineContent {
    margin: 0;
    padding:0;
 }
+
+div.timelineDash {
+  width: 1px;
+  overflow: hidden;
+  background: black;
+  height: 3px;
+  position: absolute;
+}
+
+div.tall {
+  height: 6px;
+}
+
 div#allStartArrow, div#allEndArrow {
   position: absolute;
   height: 18px;
@@ -35,6 +48,23 @@ div#allStartArrow {
 div#allEndArrow {
   border-left: solid 1px;
 }
+div#allTimeBar {
+  position: absolute;
+  top: 88px;
+  height: 1px;
+  right: -1px;
+  width: 799px;
+  background: black;
+  line-height: 1px;
+  border: none;
+  font-size: 1px;
+}
+div#allTimeScale {
+  z-index:10;position:absolute; top:89px; height:4px; right:-1px; width:799px;
+      border-left:1px black solid; line-height:3px; border:none; font-size:3px;
+}
+
+
 div.timeBar {
   position: absolute;
   text-align: center;
