@@ -26,12 +26,12 @@
 #column-one {
 	padding-top: 160px;
 }
+
 #content {
   color: black;
 	border: 1px solid #aaa;
 	border-right: none;
 	line-height: 1.5em;
-	
 }
 
 body {
@@ -940,7 +940,7 @@ li#ca-watch, li#ca-unwatch, li#ca-varlang-0, li#ca-print {
 	border-collapse: inherit;
 	border: 0;
 	padding: 0;
-	
+
 }
 #p-cactions .hiddenStructure {
 	display: none;
@@ -1065,7 +1065,7 @@ li#ca-watch, li#ca-unwatch, li#ca-varlang-0, li#ca-print {
 	margin-right: 2em;
 }
 .prefsection legend {
-	font-weight: bold;   
+	font-weight: bold;
 }
 .prefsection table, .prefsection legend {
 	background-color: #F9F9F9;
@@ -1523,7 +1523,7 @@ tr.sv-space td { display: none; }
 */
 .TablePager_nav a { text-decoration: none; }
 .TablePager { border-collapse: collapse; }
-.TablePager, .TablePager td, .TablePager th { 
+.TablePager, .TablePager td, .TablePager th {
 	border: 1px solid #aaaaaa;
 	padding: 0 0.15em 0 0.15em;
 }

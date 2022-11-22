@@ -1,3 +1,14 @@
+.timelineHolder {
+  position: relative;
+}
+
+.topBar {
+  position: absolute;
+  top: 18px;
+  height: 16px;
+  line-height: 15px;
+}
+
 .timelineDash {
   width: 1px;
   overflow: hidden;
@@ -5,21 +16,24 @@
   height: 3px;
   position: absolute;
 }
+
 .timelineLabel {
   overflow: hidden;
-  position:absolute;
+  position: absolute;
 }
+
 div#referrer {
   float: left;
   padding-left: 2em;
   font-size: smaller;
 }
+
 div#timelineContent {
-   width: 799px;
-   height: 348px;
-   position: relative;
-   margin: 0;
-   padding:0;
+  width: 799px;
+  height: 348px;
+  position: relative;
+  margin: 0;
+  padding: 0;
 }
 
 div.timelineDash {
@@ -35,6 +49,9 @@ div.tall {
 }
 
 div#allStartArrow, div#allEndArrow {
+}
+
+div.startArrow, div.endArrow {
   position: absolute;
   height: 18px;
   line-height: 18px;
@@ -42,12 +59,16 @@ div#allStartArrow, div#allEndArrow {
   font-style: italic;
   border-color: #c33;
 }
-div#allStartArrow {
+
+div.startArrow {
   border-right: solid 1px;
 }
-div#allEndArrow {
+
+div.endArrow {
   border-left: solid 1px;
 }
+
+
 div#allTimeBar {
   position: absolute;
   top: 88px;
@@ -59,11 +80,40 @@ div#allTimeBar {
   border: none;
   font-size: 1px;
 }
-div#allTimeScale {
-  z-index:10;position:absolute; top:89px; height:4px; right:-1px; width:799px;
-      border-left:1px black solid; line-height:3px; border:none; font-size:3px;
+
+div.scale {
+  position: absolute;
+  top: 89px;
+  height: 4px;
+  width: 799px;
+  right: -1px;
+  border-left: 1px black solid;
+  border: none;
 }
 
+div#allTimeScale {
+  z-index: 10;
+  width: 799px;
+  line-height: 3px;
+  font-size: 3px;
+}
+
+div#phanerozoicScale {
+  z-index: 1;
+  background:#e99;
+  line-height: 1px;
+  font-size:1px;
+}
+
+div#allTimeLegend {
+  text-align: center;
+  position: absolute;
+  top: 95px;
+  height: 14px;
+  line-height: 13px;
+  border: none;
+  font-size: 9px;
+}
 
 div.timeBar {
   position: absolute;
@@ -75,7 +125,21 @@ div.timeBar {
   line-height: 15px;
 }
 
-.gap0{width:<?echo ((500*799/$lastPeriod[0]));?>px}
-.gap1{width:<?echo ((50*799/$lastPeriod[1]));?>px}
-.gap2{width:<?echo ((10*799/$lastPeriod[2]));?>px}
-.tall{height: 6px;}
+.gap0 {
+  width: <?echo ((500*799/$lastPeriod[0]));
+  ?>px
+}
+
+.gap1 {
+  width: <?echo ((50*799/$lastPeriod[1]));
+  ?>px
+}
+
+.gap2 {
+  width: <?echo ((10*799/$lastPeriod[2]));
+  ?>px
+}
+
+.tall {
+  height: 6px;
+}

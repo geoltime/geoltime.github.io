@@ -37,71 +37,7 @@
               <fieldset id="fsTimeline">
                 <legend>Timeline</legend>
                 <div id="timelineContent">
-                  
-                  <div id=AllTimeLegend style="text-align:center;position:absolute; top:95px; height:14px; right:-<?echo ((250*799/$lastPeriod[0])+1);?>px;
-                  width:<?echo ((250*799/$lastPeriod[0])+799+100);?>px;	line-height:13px; border:none; font-size:9px;">
-                    <?
-                    for ($i=0;$i<$sot;$i+=500){?>
-                      <div class="timelineLabel gap0" style="right:<?echo ($i*799/$lastPeriod[0]);?>px"><?echo $i;?></div>
-                    <?}?>
-                  </div>
-                  <?
-                  //End of first timeline.  Do we need to draw another?
-                  if (!$ma || $ma <= $lastPeriod[1]){?>
-                    <div id=PhanerozoicScale style="z-index:1; position:absolute; top:89px; height:4px; right:-1px; width:<?echo ($lastPeriod[1]*799/$sot);?>px;
-                      border-left:1px black solid; line-height:1px; border:none; background:#e99; font-size:1px;">&nbsp;</div>
 
-
-
-                  <?
-                    $sot = $lastPeriod[1];
-                    if ($ma){
-                    ?>
-                      <div id='PhanerozoicStartArrow' style='position:absolute; top:115px; right:<?echo ((799*$rangeStart/$sot)-1);?>px; border-right:solid #c33 1px; height:18px; line-height:18px; padding-left:1px; font-style:italic;'><?echo $rangeStart;?>&nbsp;Ma</div>
-                    <? if ($rangeEnd){	?>
-                      <div id='PhanerozoicEndArrow' style='position:absolute; top:115px; left:<?echo (799-(799*$rangeEnd/$sot));?>px; border-left:solid #c33 1px; height:18px; line-height:18px; padding-left:1px; font-style:italic;'><?echo $rangeEnd;?>&nbsp;Ma</div>
-                    <? }
-                    }
-
-                  //Start the Phanerozoic timeline?>
-
-                    <div id=Phanerozoic style="top:115px; position:relative;">
-                    <?
-                    foreach($periods[1] as $tp){//tp=Eon
-                      if ($lastTP[1]<=$lastPeriod[1]){?>
-                      <div style='position:absolute; text-align:center; border:1px solid; border-right:none; left:<?echo (799-($lastTP[1]*799/$sot));?>px;
-                        height:16px; line-height:15px; top:18px; width:<? echo (($lastTP[1]-$tp[1])*799/$sot);?>px; overflow:hidden; background:rgb(<?echo $lastTP[2];?>);'><?echo wikilink($lastTP[0])?></div>
-                  <?}$lastTP = $tp;}$lastTP=null;
-
-                    foreach($periods[2] as $tp){//tp=Era
-                      if ($lastTP[1]<=$lastPeriod[1]){?>
-                      <div style='position:absolute; text-align:center; border:1px solid; border-right:none; left:<?echo (799-($lastTP[1]*799/$sot));?>px;
-                        height:16px; line-height:15px; top:35px; width:<? echo (($lastTP[1]-$tp[1])*799/$sot);?>px; overflow:hidden; background:rgb(<?echo $lastTP[2];?>);'><?echo wikilink($lastTP[0])?></div>
-                  <?}$lastTP = $tp;}$lastTP=null;
-
-                    foreach($periods[3] as $tp){//tp=Period
-                      if ($lastTP[1]<=$lastPeriod[1]){
-                        if ($lastTP[1]>$lastPeriod[2]){?>
-                        <div style='position:absolute; text-align:center; border:1px solid; border-right:none; left:<?echo (799-($lastTP[1]*799/$sot));?>px; height:25px;
-                        font-size:smaller; line-height:25px; top:52px; width:<? echo (($lastTP[1]-$tp[1])*799/$sot);?>px; overflow:hidden; background:rgb(<?echo $lastTP[2];?>);'><?
-                        echo wikilink($lastTP[0]); ?></div>
-                      <?}else{?>
-
-                        <div style='position:absolute; text-align:center; border:1px solid; border-right:none; left:<?echo (799-($lastTP[1]*799/$sot));?>px; height:25px;
-                        font-size:smaller; line-height:12px; top:52px; width:<? echo (($lastTP[1]-$tp[1])*799/$sot);?>px; overflow:hidden; background:rgb(<?echo $lastTP[2];?>);'><?
-                        echo wikilink($lastTP[0], str_replace("gene", "-<br>gene",$lastTP[0])); ?></div>
-                      <?}}$lastTP = $tp;
-                    }$lastTP=null;?>
-
-
-                    </div Phanerozoic>
-                    <div id=PhanerozoicTimeScale style="z-index:10; position:absolute; top:194px; height:4px; right:-1px; width:799px;
-                    border-left:1px black solid; line-height:3px; border:none; font-size:3px;">
-                    <?
-                    for ($i=0;$i<$sot;$i+=10){?>
-                      <div class="timelineDash<?echo ($i%50==0)?" tall":"";?>" style="right:<?echo ($i*799/$lastPeriod[1]);?>px";>&nbsp;</div>
-                    <?}?>
-                    </div>
                     <div id=PhanerozoicTimeLegend style="text-align:center;position:absolute; top:200px; height:14px;
                     right:-<?echo ((25*799/$lastPeriod[1])+1);?>px;
                     width:<?echo ((25*799/$lastPeriod[1])+799+100);?>px;	line-height:13px; border:none; font-size:9px;">
