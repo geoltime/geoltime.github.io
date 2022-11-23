@@ -44,8 +44,6 @@ div#referrer {
 }
 
 div#timelineContent {
-  width: 799px;
-  height: 348px;
   position: relative;
   margin: 0;
   padding: 0;
@@ -117,10 +115,11 @@ div.timeBar {
 }
 
 div#myaLegend {
-  text-align: center;
+  position: absolute;
+  bottom: 0px;
   width: 799px;
   font-size: 10px;
-  position: absolute;
+  text-align: center;
 }
 
 .tall {
