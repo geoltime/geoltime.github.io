@@ -129,3 +129,11 @@ div#myaLegend {
 .tall {
   height: 6px;
 }
+
+@media print {
+
+  a, a:visited, a:-webkit-any-link {
+    color: #000;
+  }
+
+}
