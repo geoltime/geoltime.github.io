@@ -11,9 +11,33 @@ function hasNumber(str) {
 const ma = hasNumber(urlParams.get("Ma")) ? urlParams.get("Ma") :
            hasNumber(urlParams.get("ma")) ? urlParams.get("ma") : null;
 
-const range = ma.match(/([\d\.\s]+)[^\d\.\s]([\d\.\s]+)/);
+const range = ma === null ? null : ma.match(/([\d\.\s]+)[^\d\.\s]([\d\.\s]+)/);
 const maFrom = range ? Math.max(Number(range[1]), Number(range[2])) : ma;
 const maTo = range ? Math.min(Number(range[1]), Number(range[2])) : ma;
+
+// Global function definitions
+function TimeBar(units, i, barStart) {
+  if (i >= units.length - 1) return;
+  let unit = units[i];
+  let nextUnit = units[Number(i) + 1];
+  let bar = document.createElement("div");
+  bar.classList.add("timeBar");
+  bar.style.left = (width - (unit.start * width / barStart)) + "px";
+  bar.style.width = ((unit.start - nextUnit.start) * width / barStart) + "px";
+  bar.style.background = "rgb(" + unit.col + ")";
+  bar.innerHTML = wikilink(unit.name);
+  if (i == units.length - 2) {
+    bar.style.boxShadow = "black -1px 0px 0px inset";
+  }
+  return bar;
+}
+
+function EmptyDiv(id = null) {
+  let div = document.createElement("div");
+  if (id) div.id = id;
+  div.innerHTML = "&nbsp;"
+  return div;
+}
 
 function wikilink(article, title = null) {
   return "<a href='https://en.wikipedia.org/wiki/" + article +
@@ -21,6 +45,8 @@ function wikilink(article, title = null) {
     (title ? title : article) + "</a>";
 }
 
+
+// Draw page
 if (ma != null) {
   document.title = ma + " million years ago - the geological timescale";
   document.getElementById("pageTitle").innerHTML = ma + " million years ago";
@@ -62,12 +88,12 @@ if (ma != null) {
     + (fromSubP == null ? "" : (", " + wikilink(fromSubP.name) + " subperiod"))
     + (fromEpoch == null ? "" : (", " + wikilink(fromEpoch.name) + " epoch"))
     + (fromStage == null ? "" : (", " + wikilink(fromStage.name) + " stage"))
-    + (maTo == maFrom ||
+    + ((maTo == maFrom ||
        toEon == null ||
-        toStage == fromStage ||
-         toEpoch == fromEpoch ? "" :
+        (toStage !== null && toStage == fromStage) ||
+        (toEpoch !== null && toEpoch == fromEpoch)) ? "" :
     (
-      "<br /> to <br />"
+      "<br /> &mdash; to &mdash; <br />"
       + (toEon == fromEon ? "" : (wikilink(toEon.name) + " eon"))
       + (toEra == null || toEra == fromEra ? "" : (", " + wikilink(toEra.name) + " era"))
       + (toPeriod == null || toPeriod == fromPeriod ? "" : (", " + wikilink(toPeriod.name) + " period"))
@@ -82,14 +108,33 @@ if (ma != null) {
     fsWhen,
     document.getElementById("fsTimeline")
   );
+}
 
+// Timeline content
+var tlContent = document.getElementById("timelineContent")
+tlContent.style.width = width + "px";
+const allTimeHeight = 111;
+
+const phanerozoic = eons[3];
+const showPhanerozoic = ma == null || maFrom <= phanerozoic.start;
+const pzHeight = showPhanerozoic ? 111 : 0;
+
+const cenozoic = eras[9];
+const showCenozoic = ma == null || maFrom <= cenozoic.start
+const czHeight = showCenozoic ? 111 : 0;
+
+const myaHeight = 17;
+
+tlContent.style.height =
+ (allTimeHeight + pzHeight + czHeight + myaHeight) + "px";
+
+if (maFrom) {
   var allStart = document.createElement("div");
   allStart.id = "allStartArrow";
   allStart.classList.add("startArrow");
   allStart.innerHTML = maFrom + "&nbsp;Ma";
   allStart.style.right = width * (maFrom / eons[0].start ) - 1 + "px";
 
-  var tlContent = document.getElementById("timelineContent")
   tlContent.append(allStart);
   if (maTo != maFrom) {
     let allEnd = document.createElement("div");
@@ -99,128 +144,108 @@ if (ma != null) {
     allEnd.style.left = (width - (width * maTo / eons[0].start )) + "px";
     tlContent.append(allEnd)
   }
+}
 
-  function TimeBar(units, i, barStart) {
-    if (i >= units.length - 1) return;
-    let unit = units[i];
-    let nextUnit = units[Number(i) + 1];
-    let bar = document.createElement("div");
-    bar.classList.add("timeBar");
-    bar.style.left = (width - (unit.start * width / barStart)) + "px";
-    bar.style.width = ((unit.start - nextUnit.start) * width / barStart) + "px";
-    bar.style.background = "rgb(" + unit.col + ")";
-    bar.innerHTML = wikilink(unit.name);
-    if (i == units.length - 2) {
-      bar.style.boxShadow = "black -1px 0px 0px inset";
+var allTime = document.createElement("div");
+allTime.id = "allTime";
+allTime.classList.add("timelineHolder");
+for (let i = 0; i < eons.length; i++) {
+  let bar = TimeBar(eons, i, eons[0].start);
+  if (bar) {
+    bar.classList.add("topBar");
+    allTime.append(bar);
+  }
+}
+
+for (let i = 0; i < eras.length; i++) {
+  let bar = TimeBar(eras, i, eons[0].start);
+  if (bar) {
+    bar.style.top = "35px";
+    bar.style.height = "26px";
+    bar.style.fontSize = "smaller";
+    if (!eras[i].name.match("erozoi")) {
+      // Hyphenate
+      bar.firstChild.innerHTML = bar.firstChild.innerHTML
+        .replace("archean", "arch-<br />ean")
+        .replace("zoic", "-<br />zoic");
+      bar.style.lineHeight = "12px";
+    } else {
+      bar.style.lineHeight = "25px";
     }
-    return bar;
+    allTime.append(bar);
   }
+}
 
-  var allTime = document.createElement("div");
-  allTime.id = "allTime";
-  allTime.classList.add("timelineHolder");
-  for (let i = 0; i < eons.length; i++) {
-    let bar = TimeBar(eons, i, eons[0].start);
-    if (bar) {
-      bar.classList.add("topBar");
-      allTime.append(bar);
+for (let i = 0; i < periods.length; i++) {
+  let bar = TimeBar(periods, i, eons[0].start);
+  if (bar) {
+    bar.style.height = "25px";
+    bar.style.top = "62px";
+    bar.style.fontSize = "smaller";
+    if (periods[i].start > 700) { // Phanerozoic or Ediacaran
+      bar.style.lineHeight = "12px";
+
+      // Hyphenate
+      bar.firstChild.innerHTML = bar.firstChild.innerHTML
+        .replace(/([^m])ian/, "$1<br />-ian")
+        .replace(/([^-])(\wian)/, "$1<br />-$2")
+      ;
+    } else {
+      bar.style.lineHeight = "25px";
+      bar.firstChild.innerHTML = bar.firstChild.innerHTML
+        .replace("Camb", "&")
+        .replace("Cret", "K")
+        .substring(0, 1)
+        .replace("&", "&#x0404;");
     }
+    allTime.append(bar);
   }
+}
 
-  for (let i = 0; i < eras.length; i++) {
-    let bar = TimeBar(eras, i, eons[0].start);
-    if (bar) {
-      bar.style.top = "35px";
-      bar.style.height = "26px";
-      bar.style.fontSize = "smaller";
-      if (!eras[i].name.match("erozoi")) {
-        // Hyphenate
-        bar.firstChild.innerHTML = bar.firstChild.innerHTML
-          .replace("archean", "arch-<br />ean")
-          .replace("zoic", "-<br />zoic");
-        bar.style.lineHeight = "12px";
-      } else {
-        bar.style.lineHeight = "25px";
-      }
-      allTime.append(bar);
-    }
+var allTimeScale = EmptyDiv("allTimeScale");
+allTimeScale.classList.add("scale");
+allTimeScale.style.top = "88px";
+for (let i = 0; i < eons[0].start; i += 100) {
+  let dash = EmptyDiv();
+  dash.classList.add("timelineDash");
+  if (i % 500 == 0) {
+    dash.classList.add("tall");
   }
+  dash.style.right = (i * width / eons[0].start) + "px";
+  allTimeScale.append(dash);
+}
 
-  for (let i = 0; i < periods.length; i++) {
-    let bar = TimeBar(periods, i, eons[0].start);
-    if (bar) {
-      bar.style.height = "25px";
-      bar.style.top = "62px";
-      bar.style.fontSize = "smaller";
-      if (periods[i].start > 700) { // Phanerozoic or Ediacaran
-        bar.style.lineHeight = "12px";
+if (showPhanerozoic) {
+  allTimeScale.style.boxShadow = "inset -" +
+    (width * phanerozoic.start / eons[0].start) + "px 0 0 #E99";
+}
 
-        // Hyphenate
-        bar.firstChild.innerHTML = bar.firstChild.innerHTML
-          .replace(/([^m])ian/, "$1<br />-ian")
-          .replace(/([^-])(\wian)/, "$1<br />-$2")
-        ;
-      } else {
-        bar.style.lineHeight = "25px";
-        bar.firstChild.innerHTML = bar.firstChild.innerHTML
-          .replace("Camb", "&")
-          .replace("Cret", "K")
-          .substring(0, 1)
-          .replace("&", "&#x0404;");
-      }
-      allTime.append(bar);
-    }
-  }
+var allTimeLegend = EmptyDiv("allTimeLegend");
+allTimeLegend.classList.add("legendHolder");
+allTimeLegend.style.top = "95px";
+for (let i = 0; i < eons[0].start; i += 500) {
+  let lab = document.createElement("div");
+  lab.classList.add("timelineLabel");
+  lab.style.right = (i * width / eons[0].start) + "px"
+  lab.innerHTML = i;
+  allTimeLegend.appendChild(lab);
+}
 
-  function EmptyDiv(id = null) {
-    let div = document.createElement("div");
-    if (id) div.id = id;
-    div.innerHTML = "&nbsp;"
-    return div;
-  }
+tlContent.append(allTime);
+tlContent.append(allTimeScale);
+tlContent.append(allTimeLegend);
 
-  var allTimeScale = EmptyDiv("allTimeScale");
-  allTimeScale.classList.add("scale");
-  allTimeScale.style.top = "88px";
-  for (let i = 0; i < eons[0].start; i += 100) {
-    let dash = EmptyDiv();
-    dash.classList.add("timelineDash");
-    if (i % 500 == 0) {
-      dash.classList.add("tall");
-    }
-    dash.style.right = (i * width / eons[0].start) + "px";
-    allTimeScale.append(dash);
-  }
 
-  const phanerozoic = eons[3];
-  const showPhanerozoic = maFrom <= phanerozoic.start;
-  if (showPhanerozoic) {
-    allTimeScale.style.boxShadow = "inset -" +
-      (width * phanerozoic.start / eons[0].start) + "px 0 0 #E99";
-  }
-
-  var allTimeLegend = EmptyDiv("allTimeLegend");
-  allTimeLegend.classList.add("legendHolder");
-  allTimeLegend.style.top = "95px";
-  for (let i = 0; i < eons[0].start; i += 500) {
-    let lab = document.createElement("div");
-    lab.classList.add("timelineLabel");
-    lab.style.right = (i * width / eons[0].start) + "px"
-    lab.innerHTML = i;
-    allTimeLegend.append(lab);
-  }
-  var myaLegend = EmptyDiv("myaLegend")
-  myaLegend.innerHTML = "Million years ago";
-  myaLegend.style.top = "111px";
-
-  if (showPhanerozoic) {
+// Phanerozoic timeline
+if (showPhanerozoic) {
+    if (maFrom) {
       let pzStart = document.createElement("div");
       pzStart.id = "pzStartArrow";
       pzStart.classList.add("startArrow");
       pzStart.innerHTML = maFrom + "&nbsp;Ma";
       pzStart.style.right = width * (maFrom / phanerozoic.start ) - 1 + "px";
       pzStart.style.top = "115px";
-      tlContent.append(pzStart);
+      tlContent.appendChild(pzStart);
 
       if (maTo != maFrom) {
         let pzEnd = document.createElement("div");
@@ -229,83 +254,87 @@ if (ma != null) {
         pzEnd.innerHTML = maTo + "&nbsp;Ma";
         pzEnd.style.left = (width - (width * maTo / phanerozoic.start )) + "px";
         pzEnd.style.top = "115px";
-        tlContent.append(pzEnd)
+        tlContent.appendChild(pzEnd)
       }
+    }
 
-      var pz = document.createElement("div");
-      pz.id = "Phanerozoic";
-      pz.classList.add("timelineHolder");
-      pz.style.top = "115px";
+    var pz = document.createElement("div");
+    pz.id = "Phanerozoic";
+    pz.classList.add("timelineHolder");
+    pz.style.top = "115px";
 
-      let phzBar = TimeBar(eons, 3, phanerozoic.start);
-      phzBar.classList.add("topBar");
-      pz.append(phzBar);
+    let phzBar = TimeBar(eons, 3, phanerozoic.start);
+    phzBar.classList.add("topBar");
+    pz.appendChild(phzBar);
 
-      for (let i = 0; i < eras.length; i++) {
-        let bar = TimeBar(eras, i, phanerozoic.start);
-        if (bar && eras[i].start <= phanerozoic.start) {
-          bar.style.top = "35px";
-          bar.style.height = "16px";
-          pz.append(bar);
+    for (let i = 0; i < eras.length; i++) {
+      let bar = TimeBar(eras, i, phanerozoic.start);
+      if (bar && eras[i].start <= phanerozoic.start) {
+        bar.style.top = "35px";
+        bar.style.height = "16px";
+        pz.appendChild(bar);
+      }
+    }
+
+    for (let i = 0; i < periods.length; i++) {
+      let bar = TimeBar(periods, i, phanerozoic.start);
+      if (bar && periods[i].start <= phanerozoic.start) {
+        bar.style.height = "25px";
+        bar.style.top = "52px";
+        bar.style.fontSize = "smaller";
+        bar.style.lineHeight = "25px";
+        if (periods[i].name == "Neogene") {
+          bar.firstChild.innerHTML = bar.firstChild.innerHTML
+            .replace("gene", "-<br />gene");
+          bar.style.lineHeight = "12px";
         }
+        pz.appendChild(bar);
       }
+    }
 
-      for (let i = 0; i < periods.length; i++) {
-        let bar = TimeBar(periods, i, phanerozoic.start);
-        if (bar && periods[i].start <= phanerozoic.start) {
-          bar.style.height = "25px";
-          bar.style.top = "52px";
-          bar.style.fontSize = "smaller";
-          bar.style.lineHeight = "25px";
-          if (periods[i].name == "Neogene") {
-            bar.firstChild.innerHTML = bar.firstChild.innerHTML
-              .replace("gene", "-<br />gene");
-            bar.style.lineHeight = "12px";
-          }
-          pz.append(bar);
-        }
+    var pzScale = EmptyDiv("pzScale");
+    pzScale.classList.add("scale");
+    pzScale.style.top = "193px";
+    for (let i = 0; i < phanerozoic.start; i += 10) {
+      let dash = EmptyDiv();
+      dash.classList.add("timelineDash");
+      if (i % 50 == 0) {
+        dash.classList.add("tall");
       }
+      dash.style.right = (i * width / phanerozoic.start) + "px";
+      pzScale.appendChild(dash);
+    }
 
-      var pzScale = EmptyDiv("pzScale");
-      pzScale.classList.add("scale");
-      pzScale.style.top = "193px";
-      for (let i = 0; i < phanerozoic.start; i += 10) {
-        let dash = EmptyDiv();
-        dash.classList.add("timelineDash");
-        if (i % 50 == 0) {
-          dash.classList.add("tall");
-        }
-        dash.style.right = (i * width / phanerozoic.start) + "px";
-        pzScale.append(dash);
-      }
+    if (showCenozoic) {
+      pzScale.style.boxShadow = "inset -" +
+        (width * cenozoic.start / phanerozoic.start) + "px 0 0 #E99";
+    }
 
-      const cenozoic = eras[9];
-      const showCenozoic = maFrom <= cenozoic.start
-      if (showCenozoic) {
-        pzScale.style.boxShadow = "inset -" +
-          (width * cenozoic.start / phanerozoic.start) + "px 0 0 #E99";
-      }
+    var pzLegend = EmptyDiv("pzLegend");
+    pzLegend.style.top = "200px";
+    pzLegend.classList.add("legendHolder");
+    for (let i = 0; i < phanerozoic.start; i += 100) {
+      let lab = document.createElement("div");
+      lab.classList.add("timelineLabel");
+      lab.style.right = (i * width / phanerozoic.start) + "px"
+      lab.innerHTML = i;
+      pzLegend.appendChild(lab);
+    }
 
-      var pzLegend = EmptyDiv("pzLegend");
-      pzLegend.style.top = "200px";
-      pzLegend.classList.add("legendHolder");
-      for (let i = 0; i < phanerozoic.start; i += 100) {
-        let lab = document.createElement("div");
-        lab.classList.add("timelineLabel");
-        lab.style.right = (i * width / phanerozoic.start) + "px"
-        lab.innerHTML = i;
-        pzLegend.append(lab);
-      }
-      myaLegend.style.top = "222px";
+    tlContent.append(pz);
+    tlContent.append(pzScale);
+    tlContent.append(pzLegend);
 
-      if (showCenozoic) {
+    // Cenozoic bar
+    if (showCenozoic) {
+      if (maFrom) {
         let czStart = document.createElement("div");
         czStart.id = "czStartArrow";
         czStart.classList.add("startArrow");
         czStart.innerHTML = maFrom + "&nbsp;Ma";
         czStart.style.right = width * (maFrom / cenozoic.start ) - 1 + "px";
         czStart.style.top = "230px";
-        tlContent.append(czStart);
+        tlContent.appendChild(czStart);
 
         if (maTo != maFrom) {
           let czEnd = document.createElement("div");
@@ -314,78 +343,73 @@ if (ma != null) {
           czEnd.innerHTML = maTo + "&nbsp;Ma";
           czEnd.style.left = (width - (width * maTo / cenozoic.start )) + "px";
           czEnd.style.top = "230px";
-          tlContent.append(czEnd);
+          tlContent.appendChild(czEnd);
         }
+      }
 
-        var cz = document.createElement("div");
-        cz.id = "Phanerozoic";
-        cz.classList.add("timelineHolder");
-        cz.style.top = "230px";
+      var cz = document.createElement("div");
+      cz.id = "Phanerozoic";
+      cz.classList.add("timelineHolder");
+      cz.style.top = "230px";
 
-        let czBar = TimeBar(eras, 9, cenozoic.start);
-        czBar.classList.add("topBar");
-        cz.append(czBar);
+      let czBar = TimeBar(eras, 9, cenozoic.start);
+      czBar.classList.add("topBar");
+      cz.appendChild(czBar);
 
-        for (let i = 0; i < periods.length; i++) {
-          let bar = TimeBar(periods, i, cenozoic.start);
-          if (bar && periods[i].start <= cenozoic.start) {
-            bar.style.top = "35px";
-            bar.style.height = "17px";
-            bar.style.lineHeight = "16px";
-            cz.append(bar);
-          }
+      for (let i = 0; i < periods.length; i++) {
+        let bar = TimeBar(periods, i, cenozoic.start);
+        if (bar && periods[i].start <= cenozoic.start) {
+          bar.style.top = "35px";
+          bar.style.height = "17px";
+          bar.style.lineHeight = "16px";
+          cz.appendChild(bar);
         }
+      }
 
-        for (let i = 0; i < subperiods.length; i++) {
-          let bar = TimeBar(subperiods, i, cenozoic.start);
-          if (bar && subperiods[i].start <= cenozoic.start) {
-            bar.style.height = "25px";
-            bar.style.top = "53px";
-            bar.style.fontSize = "smaller";
-            bar.style.lineHeight = "25px";
-            cz.append(bar);
-          }
+      for (let i = 0; i < subperiods.length; i++) {
+        let bar = TimeBar(subperiods, i, cenozoic.start);
+        if (bar && subperiods[i].start <= cenozoic.start) {
+          bar.style.height = "25px";
+          bar.style.top = "53px";
+          bar.style.fontSize = "smaller";
+          bar.style.lineHeight = "25px";
+          cz.appendChild(bar);
         }
+      }
 
-        var czScale = EmptyDiv("czScale");
-        czScale.classList.add("scale");
-        czScale.style.top = "309px";
-        for (let i = 0; i < cenozoic.start; i += 1) {
-          let dash = EmptyDiv();
-          dash.classList.add("timelineDash");
-          if (i % 10 == 0) {
-            dash.classList.add("tall");
-          }
-          dash.style.right = (i * width / cenozoic.start) + "px";
-          czScale.append(dash);
+      var czScale = EmptyDiv("czScale");
+      czScale.classList.add("scale");
+      czScale.style.top = "309px";
+      for (let i = 0; i < cenozoic.start; i += 1) {
+        let dash = EmptyDiv();
+        dash.classList.add("timelineDash");
+        if (i % 10 == 0) {
+          dash.classList.add("tall");
         }
+        dash.style.right = (i * width / cenozoic.start) + "px";
+        czScale.appendChild(dash);
+      }
 
-        var czLegend = EmptyDiv("czLegend");
-        czLegend.style.top = "317px";
-        czLegend.classList.add("legendHolder");
-        for (let i = 0; i < cenozoic.start; i += 10) {
-          let lab = document.createElement("div");
-          lab.classList.add("timelineLabel");
-          lab.style.right = (i * width / cenozoic.start) + "px"
-          lab.innerHTML = i;
-          czLegend.append(lab);
-        }
-        myaLegend.style.top = "333px";
-     }
-  }
+      var czLegend = EmptyDiv("czLegend");
+      czLegend.style.top = "317px";
+      czLegend.classList.add("legendHolder");
+      for (let i = 0; i < cenozoic.start; i += 10) {
+        let lab = document.createElement("div");
+        lab.classList.add("timelineLabel");
+        lab.style.right = (i * width / cenozoic.start) + "px"
+        lab.innerHTML = i;
+        czLegend.appendChild(lab);
+      }
+
+      tlContent.append(cz);
+      tlContent.append(czScale);
+      tlContent.append(czLegend);
+   }
 }
-tlContent.appendChild(allTime);
-tlContent.appendChild(allTimeScale);
-tlContent.appendChild(allTimeLegend);
-tlContent.appendChild(pz);
-tlContent.appendChild(pzScale);
-tlContent.appendChild(pzLegend);
-tlContent.appendChild(allTimeLegend)
-tlContent.appendChild(cz);
-tlContent.appendChild(czScale);
-tlContent.appendChild(czLegend);
+
+let myaLegend = EmptyDiv("myaLegend")
+myaLegend.innerHTML = "Million years ago";
 tlContent.appendChild(myaLegend);
-//tlContent.append(cz);
 
 if (document.referrer) {
   let fromDiv = document.createElement("div");

@@ -44,8 +44,6 @@ div#referrer {
 }
 
 div#timelineContent {
-  width: 799px;
-  height: 348px;
   position: relative;
   margin: 0;
   padding: 0;
@@ -114,15 +112,28 @@ div.timeBar {
   overflow: hidden;
   height: 16px;
   line-height: 15px;
+  color-adjust: exact!important;
+  print-color-adjust: exact!important;
+  -webkit-print-color-adjust: exact!important;
+
 }
 
 div#myaLegend {
-  text-align: center;
+  position: absolute;
+  bottom: 0px;
   width: 799px;
   font-size: 10px;
-  position: absolute;
+  text-align: center;
 }
 
 .tall {
   height: 6px;
+}
+
+@media print {
+
+  a, a:visited, a:-webkit-any-link {
+    color: #000;
+  }
+
 }
