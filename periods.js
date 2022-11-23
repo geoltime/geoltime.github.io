@@ -186,13 +186,3 @@ const epochs = [
 	{name: "Meghalayan", start: 0.004, col: ""},
 	{name: "Present", start: 0}
 ];
-const stages = [
-	{name: "Tournaisian", start: 359.2, col: "145,179,132"},
-	{name: "Visean", start: 345.3, col: "171,188,133"},
-	{name: "Serpukhovian", start: 326.4, col: "205,197,134"},
-	{name: "Bashkirian", start: 318.1, col: "153,197,200"},
-	{name: "Moscovian", start: 311.7, col: "180,206,203"},
-	{name: "Kasimovian", start: 306.5, col: "202,204,205"},
-	{name: "Gzhelian", start: 303.9, col: "202,204,205"},
-	{name: "Present", start: 0}
-];
