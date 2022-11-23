@@ -88,12 +88,12 @@ if (ma != null) {
     + (fromSubP == null ? "" : (", " + wikilink(fromSubP.name) + " subperiod"))
     + (fromEpoch == null ? "" : (", " + wikilink(fromEpoch.name) + " epoch"))
     + (fromStage == null ? "" : (", " + wikilink(fromStage.name) + " stage"))
-    + (maTo == maFrom ||
+    + ((maTo == maFrom ||
        toEon == null ||
-        toStage == fromStage ||
-         toEpoch == fromEpoch ? "" :
+        (toStage !== null && toStage == fromStage) ||
+        (toEpoch !== null && toEpoch == fromEpoch)) ? "" :
     (
-      "<br /> to <br />"
+      "<br /> &mdash; to &mdash; <br />"
       + (toEon == fromEon ? "" : (wikilink(toEon.name) + " eon"))
       + (toEra == null || toEra == fromEra ? "" : (", " + wikilink(toEra.name) + " era"))
       + (toPeriod == null || toPeriod == fromPeriod ? "" : (", " + wikilink(toPeriod.name) + " period"))
