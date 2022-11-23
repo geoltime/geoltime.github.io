@@ -112,6 +112,10 @@ div.timeBar {
   overflow: hidden;
   height: 16px;
   line-height: 15px;
+  color-adjust: exact!important;
+  print-color-adjust: exact!important;
+  -webkit-print-color-adjust: exact!important;
+
 }
 
 div#myaLegend {
