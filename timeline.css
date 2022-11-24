@@ -92,6 +92,12 @@ div#allTimeBar {
   font-size: 1px;
 }
 
+div#sources {
+  text-align: right;
+  font-size: smaller;
+  font-style:italic;
+}
+
 div.scale {
   position: absolute;
   height: 5px;
