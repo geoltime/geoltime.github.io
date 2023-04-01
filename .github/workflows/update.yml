@@ -27,7 +27,7 @@ jobs:
         shell: bash
 
       - name: Execute python script
-        run: python update-periods.py
+        run: python  update_periods.py
         shell: bash
 
       - name: Commit
