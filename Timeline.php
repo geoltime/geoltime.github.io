@@ -1,5 +1,4 @@
 <?php
-
 $ma = isset($_GET["Ma"]) ? htmlspecialchars(preg_replace("~[\s,]~","",$_GET["Ma"])) : NULL;
 $from = isset($_SERVER["HTTP_REFERER"]) ? $_SERVER["HTTP_REFERER"] : NULL;
 
@@ -29,8 +28,8 @@ function wikilink($page, $title=null) {
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html>
-<head>   				
-						
+<head>
+
   <meta content="text/html; charset=UTF-8"
   <meta content="text/html; charset=UTF-8"
  http-equiv="content-type" />
@@ -50,22 +49,21 @@ function wikilink($page, $title=null) {
 		.gap1{width:<?echo ((50*799/$lastPeriod[1]));?>px}
 		.gap2{width:<?echo ((10*799/$lastPeriod[2]));?>px}
 		.tall{height:6px;}
-  </style> 
-   
+  </style>
+
 
 </head>
-<body style="direction: ltr;" class="mediawiki ns--1 ltr page-Spezial_Beiträge"> 
+<body style="direction: ltr;" class="mediawiki ns--1 ltr page-Spezial_Beiträge">
   <div id="globalWrapper">
-    <div id="column-content"> 
-
-          <div id="content">
-        <a name="top" id="top"></a>  
+    <div id="column-content">
+			<div id="content">
+        <a name="top" id="top"></a>
         <h1 class="firstHeading">
           <? echo $ma?"$ma million years ago":"The geological time scale";?>
-				</h1> 
-        <div id="bodyContent"> 
+				</h1>
+        <div id="bodyContent">
           <h3 id="siteSub">
-            by Smith609, design adapted from Luxo's</h3> 
+            by Smith609, design adapted from Luxo's</h3>
           <div id="contentSub">
             <? echo $ma?"on t":"T";?>he international stratigraphic timescale&nbsp;
           </div>
@@ -79,7 +77,7 @@ function wikilink($page, $title=null) {
 					<div style="text-align: right;"><img
  style="border: 0px solid ;" alt="Powered by the WikiMedia toolserver" src="http://tools.wikimedia.de/images/wikimedia-toolserver-button.png"/></div>
 
-          <!-- start content --> 
+          <!-- start content -->
           <div id="laden">
 
 						<?if ($ma){?>
@@ -98,7 +96,7 @@ function wikilink($page, $title=null) {
 							<legend>Timeline</legend>
 							<div id='timeline_holder' style='width:799px; height:348px; position:relative; margin:0; padding:0;'>
 							<?
-							
+
 							if ($ma){
 								preg_match("~([\d\.]+)([^\d\.]*([\d\.]+))?~", $ma, $range);
 								$rangeStart = $range[1];
@@ -117,30 +115,30 @@ function wikilink($page, $title=null) {
 									<div style='position:absolute; text-align:center; border:1px solid; border-right:none; left:<?echo (799-($lastTP[1]*799/$sot));?>px;
 										height:16px; line-height:15px; top:18px; width:<? echo (($lastTP[1]-$tp[1])*799/$sot);?>px; overflow:hidden; background:rgb(<?echo $lastTP[2];?>);'><?echo wikilink($lastTP[0])?></div>
 								<?}$lastTP = $tp;}$lastTP=null;
-								
+
 								foreach($periods[2] as $tp){//tp=Time Period
 									if ($lastTP){
 									if (strpos($lastTP[0],"erozoi") === FALSE){?>
-									
+
 									<div style='position:absolute; text-align:center; border:1px solid; border-right:none; left:<?echo (799-($lastTP[1]*799/$sot));?>px;
 										height:26px; font-size:smaller; line-height:12px; top:35px; width:<? echo (($lastTP[1]-$tp[1])*799/$sot);?>px; overflow:hidden; background:rgb(<?echo $lastTP[2];?>);'><?
 									echo wikilink($lastTP[0], str_replace("archean", "arch-<br>ean",str_replace("zoic", "-<br>zoic",$lastTP[0]))); ?></div>
 								<?} else {?>
-									
+
 									<div style='position:absolute; text-align:center; border:1px solid; border-right:none; left:<?echo (799-($lastTP[1]*799/$sot));?>px;
 										height:26px;	font-size:smaller; line-height:25px; top:35px; width:<? echo (($lastTP[1]-$tp[1])*799/$sot);?>px; overflow:hidden; background:rgb(<?echo $lastTP[2];?>);'><?
 									echo wikilink($lastTP[0]); ?></div>
 								<?}}$lastTP = $tp;}$lastTP=null;
-								
+
 								foreach($periods[3] as $tp){//tp=Time Period
 									if ($lastTP){
 									if ($lastTP[1]>700){//{Phanerozoic or Ediacaran}?>
-									
+
 									<div style='position:absolute; text-align:center; border:1px solid; border-right:none; left:<?echo (799-($lastTP[1]*799/$sot));?>px; height:25px;
 									font-size:smaller; line-height:12px; top:62px; width:<? echo (($lastTP[1]-$tp[1])*799/$sot);?>px; overflow:hidden; background:rgb(<?echo $lastTP[2];?>);'><?
 									echo wikilink($lastTP[0],preg_replace("~([^-])(\wian)~", "$1<br>-$2", preg_replace("~([^m])ian~", "$1<br>-ian", $lastTP[0]))); ?></div>
 								<?} else {?>
-									
+
 									<div style='position:absolute; text-align:center; border:1px solid; border-right:none; left:<?echo (799-($lastTP[1]*799/$sot));?>px; height:25px;
 									font-size:smaller; line-height:25px; top:62px; width:<? echo (($lastTP[1]-$tp[1])*799/$sot);?>px; overflow:hidden; background:rgb(<?echo $lastTP[2];?>);'><?
 									echo wikilink($lastTP[0], str_replace("&", "&#x0404;",substr(str_replace("Cret", "K", str_replace("Camb", "&", $lastTP[0])), 0,1))); ?></div>
@@ -159,7 +157,7 @@ function wikilink($page, $title=null) {
 								width:<?echo ((250*799/$lastPeriod[0])+799+100);?>px;	line-height:13px; border:none; font-size:9px;">
 									<?
 									for ($i=0;$i<$sot;$i+=500){?>
-										<div class="timelineLabel gap0" style="right:<?echo ($i*799/$lastPeriod[0]);?>px"><?echo $i;?></div> 
+										<div class="timelineLabel gap0" style="right:<?echo ($i*799/$lastPeriod[0]);?>px"><?echo $i;?></div>
 									<?}?>
 								</div>
 								<?
@@ -167,9 +165,9 @@ function wikilink($page, $title=null) {
 								if (!$ma || $ma <= $lastPeriod[1]){?>
 									<div id=PhanerozoicScale style="z-index:1; position:absolute; top:89px; height:4px; right:-1px; width:<?echo ($lastPeriod[1]*799/$sot);?>px;
 										border-left:1px black solid; line-height:1px; border:none; background:#e99; font-size:1px;">&nbsp;</div>
-									
-									
-									
+
+
+
 								<?
 									$sot = $lastPeriod[1];
 									if ($ma){
@@ -179,9 +177,9 @@ function wikilink($page, $title=null) {
 										<div id='PhanerozoicEndArrow' style='position:absolute; top:115px; left:<?echo (799-(799*$rangeEnd/$sot));?>px; border-left:solid #c33 1px; height:18px; line-height:18px; padding-left:1px; font-style:italic;'><?echo $rangeEnd;?>&nbsp;Ma</div>
 									<? }
 									}
-									
+
 								//Start the Phanerozoic timeline?>
-									
+
 									<div id=Phanerozoic style="top:115px; position:relative;">
 									<?
 									foreach($periods[1] as $tp){//tp=Eon
@@ -189,13 +187,13 @@ function wikilink($page, $title=null) {
 										<div style='position:absolute; text-align:center; border:1px solid; border-right:none; left:<?echo (799-($lastTP[1]*799/$sot));?>px;
 											height:16px; line-height:15px; top:18px; width:<? echo (($lastTP[1]-$tp[1])*799/$sot);?>px; overflow:hidden; background:rgb(<?echo $lastTP[2];?>);'><?echo wikilink($lastTP[0])?></div>
 								<?}$lastTP = $tp;}$lastTP=null;
-								
+
 									foreach($periods[2] as $tp){//tp=Era
 										if ($lastTP[1]<=$lastPeriod[1]){?>
 										<div style='position:absolute; text-align:center; border:1px solid; border-right:none; left:<?echo (799-($lastTP[1]*799/$sot));?>px;
 											height:16px; line-height:15px; top:35px; width:<? echo (($lastTP[1]-$tp[1])*799/$sot);?>px; overflow:hidden; background:rgb(<?echo $lastTP[2];?>);'><?echo wikilink($lastTP[0])?></div>
 								<?}$lastTP = $tp;}$lastTP=null;
-									
+
 									foreach($periods[3] as $tp){//tp=Period
 										if ($lastTP[1]<=$lastPeriod[1]){
 											if ($lastTP[1]>$lastPeriod[2]){?>
@@ -203,14 +201,14 @@ function wikilink($page, $title=null) {
 											font-size:smaller; line-height:25px; top:52px; width:<? echo (($lastTP[1]-$tp[1])*799/$sot);?>px; overflow:hidden; background:rgb(<?echo $lastTP[2];?>);'><?
 											echo wikilink($lastTP[0]); ?></div>
 										<?}else{?>
-											
+
 											<div style='position:absolute; text-align:center; border:1px solid; border-right:none; left:<?echo (799-($lastTP[1]*799/$sot));?>px; height:25px;
 											font-size:smaller; line-height:12px; top:52px; width:<? echo (($lastTP[1]-$tp[1])*799/$sot);?>px; overflow:hidden; background:rgb(<?echo $lastTP[2];?>);'><?
 											echo wikilink($lastTP[0], str_replace("gene", "-<br>gene",$lastTP[0])); ?></div>
 										<?}}$lastTP = $tp;
 									}$lastTP=null;?>
-									
-								
+
+
 									</div Phanerozoic>
 									<div id=PhanerozoicTimeScale style="z-index:10; position:absolute; top:194px; height:4px; right:-1px; width:799px;
 									border-left:1px black solid; line-height:3px; border:none; font-size:3px;">
@@ -224,13 +222,13 @@ function wikilink($page, $title=null) {
 									width:<?echo ((25*799/$lastPeriod[1])+799+100);?>px;	line-height:13px; border:none; font-size:9px;">
 										<?
 										for ($i=0;$i<$sot;$i+=100){?>
-											<div class="timelineLabel gap1" style="right:<?echo ($i*799/$lastPeriod[1]);?>px"><?echo $i;?></div> 
+											<div class="timelineLabel gap1" style="right:<?echo ($i*799/$lastPeriod[1]);?>px"><?echo $i;?></div>
 										<?}?>
 									</div>
-										
+
 									<?
 									//End of second timeline.  Do we need a third for the Cenozoic?
-									
+
 									if (!$ma || $ma <= $lastPeriod[2]){?>
 										<div id=CeonzoicScale style="z-index:1; position:absolute; top:194px; height:4px; right:-1px; width:<?echo ($lastPeriod[2]*799/$sot);?>px;
 											border-left:1px black solid; line-height:1px; border:none; background-color:#e99; font-size:1px;">&nbsp;</div>
@@ -252,23 +250,23 @@ function wikilink($page, $title=null) {
 											height:16px; line-height:15px; top:18px; width:<? echo (($lastTP[1]-$tp[1])*799/$sot);?>px; overflow:hidden; background:rgb(<?echo $lastTP[2];?>);'><?echo wikilink($lastTP[0])?></div>
 										<?}$lastTP = $tp;
 										}$lastTP=null;
-										
+
 										foreach($periods[3] as $tp){//tp=Time Period
 											if ($lastTP[1]<=$lastPeriod[2]){?>
-											<div style='position:absolute; text-align:center; border:1px solid; border-right:none; left:<?echo (799-($lastTP[1]*799/$sot));?>px; 
+											<div style='position:absolute; text-align:center; border:1px solid; border-right:none; left:<?echo (799-($lastTP[1]*799/$sot));?>px;
 											height:17px; line-height:15px; top:35px; width:<? echo (($lastTP[1]-$tp[1])*799/$sot);?>px; overflow:hidden; background:rgb(<?echo $lastTP[2];?>);'><?echo wikilink($lastTP[0])?></div>
 										<?}$lastTP = $tp;
 										}$lastTP=null;
-										
+
 										foreach($periods[4] as $tp){//tp=Time Period
 											if ($lastTP[1]<=$lastPeriod[2]){?>
-																						
+
 												<div style='position:absolute; text-align:center; border:1px solid; border-right:none; left:<?echo (799-($lastTP[1]*799/$sot));?>px; height:25px;
 												font-size:smaller; line-height:25px; top:53px; width:<? echo (($lastTP[1]-$tp[1])*799/$sot);?>px; overflow:hidden; background:rgb(<?echo $lastTP[2];?>);'><?
 												echo wikilink($lastTP[0]); ?></div>
 											<?}$lastTP = $tp;
 										}$lastTP=null;
-										?>										
+										?>
 										</div Cenozoic>
 										<div id=CenozoicTimeScale style="position:absolute; top:310px; height:4px; right:-1px; width:799px;
 										border-left:1px black solid; line-height:3px; border:none; font-size:3px;">
@@ -282,10 +280,10 @@ function wikilink($page, $title=null) {
 										width:<?echo ((5*799/$lastPeriod[2])+799+100);?>px;	line-height:13px; border:none; font-size:9px;">
 											<?
 											for ($i=0;$i<$sot;$i+=10){?>
-												<div class="timelineLabel gap2" style="right:<?echo ($i*799/$lastPeriod[2]);?>px"><?echo $i;?></div> 
+												<div class="timelineLabel gap2" style="right:<?echo ($i*799/$lastPeriod[2]);?>px"><?echo $i;?></div>
 											<?}?>
 										</div>
-											
+
 								<?}?>
 							<?}?>
 							<div id=myaLegend style="text-align:center; width:799px; font-size:10px; position:absolute; top:333px;">Million years ago</div>
@@ -293,10 +291,10 @@ function wikilink($page, $title=null) {
              </fieldset>
 					</div>
 					<div id=sources style="text-align:right; font-size:smaller; font-style:italic">
-						Compiled using data from <a href="http://stratigraphy.org" 
-						title="International commission for stratigraphy">the International Commission on Stratigraphy</a>. <a href='http://en.wikipedia.org/wiki/User_talk:Smith609/Timeline' title="Talk page for this page">Discuss</a> this implementation by <a 
-						href="http://en.wikipedia.org/wiki/User:Smith609" title="Martin Smith's Wikipedia user page">Martin Smith</a>. 
-						
+						Compiled using data from <a href="http://stratigraphy.org"
+						title="International commission for stratigraphy">the International Commission on Stratigraphy</a>. <a href='http://en.wikipedia.org/wiki/User_talk:Smith609/Timeline' title="Talk page for this page">Discuss</a> this implementation by <a
+						href="http://en.wikipedia.org/wiki/User:Smith609" title="Martin Smith's Wikipedia user page">Martin Smith</a>.
+
 						<br><span xmlns:dc="http://purl.org/dc/elements/1.1/" href="http://purl.org/dc/dcmitype/InteractiveResource" property="dc:title" rel="dc:type">Geological timescale</span> is licensed under a
 						<a rel="license" href="http://creativecommons.org/licenses/by-sa/3.0/">Creative Commons Attribution-Share Alike 3.0 Unported License</a>.&nbsp;<a rel="license" href="http://creativecommons.org/licenses/by-sa/3.0/"><img alt="Creative Commons License" style="border-width:0" src="http://i.creativecommons.org/l/by-sa/3.0/80x15.png"/></a>.
 					</div>
