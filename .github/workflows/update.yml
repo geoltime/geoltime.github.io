@@ -22,7 +22,8 @@ jobs:
       - name: install python packages
         run: |
           python -m pip install --upgrade pip
-          pip install requests shutil
+          pip install requests
+          pip install shutil
         shell: bash
 
       - name: Execute python script
