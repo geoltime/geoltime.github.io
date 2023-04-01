@@ -22,7 +22,7 @@ jobs:
       - name: install python packages
         run: |
           python -m pip install --upgrade pip
-          pip install json re requests shutil
+          pip install requests shutil
         shell: bash
 
       - name: Execute python script
