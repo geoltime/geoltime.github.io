@@ -35,8 +35,11 @@ jobs:
           git config --local user.email "actions@github.com"
           git config --local user.name "GitHub Actions"
           git add periods.dat
-          git diff-index --quiet HEAD || (git commit -a -m "updated logs" --allow-empty)
+          
+
           git commit -m "Update periods.dat"
+          git push
+          git diff
 
       - name: push changes
         uses: ad-m/github-push-action@v0.6.0
