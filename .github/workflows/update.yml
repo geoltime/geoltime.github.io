@@ -1,0 +1,44 @@
+on:
+  push:
+    branches:
+      - main
+      - master
+  schedule:
+    - cron: '0 11 5 * *' # At 11:00 on fifth day of month
+
+name: update-periods
+
+jobs:
+  update-periods:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: setup python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.11' # install the python version needed
+
+      - name: install python packages
+        run: |
+          python -m pip install --upgrade pip
+          pip install json re requests shutil
+        shell: bash
+
+      - name: Execute python script
+        run: python update-periods.py
+        shell: bash
+
+      - name: Commit
+        run: |
+          git config --local user.email "actions@github.com"
+          git config --local user.name "GitHub Actions"
+          git add periods.dat
+          git diff-index --quiet HEAD || (git commit -a -m "updated logs" --allow-empty)
+          git commit -m "Update periods.dat"
+
+      - name: push changes
+        uses: ad-m/github-push-action@v0.6.0
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          branch: master
