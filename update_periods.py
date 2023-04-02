@@ -1,16 +1,30 @@
 import json, re, requests, shutil
 
-period = "Silurian"
+api_root = "https://vocabs.ardc.edu.au/repository/api/lda/csiro/international-chronostratigraphic-chart/geologic-time-scale-2020/resource.text?uri="
+
+def period_info_url(period):
+    return (api_root +
+    "http://resource.geosciml.org/classifier/ics/ischart/" +
+    period.replace(" ", ""))
 
 def period_start(period):
-    url = "https://vocabs.ardc.edu.au/repository/api/lda/csiro/international-chronostratigraphic-chart/geologic-time-scale-2020/resource.text?uri=http://resource.geosciml.org/classifier/ics/ischart/Base" + period.replace(" ", "") + "Time"
-    response = requests.get(url)
+    response = requests.get(period_info_url(period))
 
     if response.status_code == 200:
         data = json.loads(response.content)
-        return(data["result"]["primaryTopic"]["numericPosition"])
+        startUri = data["result"]["primaryTopic"]["hasBeginning"]["_about"] + "Time"
+
+        response = requests.get(api_root + startUri)
+
+        if response.status_code == 200:
+            data = json.loads(response.content)
+            return(data["result"]["primaryTopic"]["numericPosition"])
+        else:
+            print("Could not load beginning from: " + startUri)
+            return 0
+
     else:
-        print("Could not load data from: " + period)
+        print("Could not load info from: " + period)
         return 0
 
 with open("periods.dat", "r") as f:
