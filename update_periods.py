@@ -1,4 +1,4 @@
-import json, re, requests, shutil
+import json, re, requests
 
 api_root = "https://vocabs.ardc.edu.au/repository/api/lda/csiro/international-chronostratigraphic-chart/geologic-time-scale-2020/resource.text?uri="
 
@@ -40,7 +40,7 @@ with open("periods.dat", "r") as f:
     lines = f.readlines()
 
 pattern = r"^(.*)(\d+ => Array\(')([\w\s]+)(\',\s*\')([\d\.]+)(',\s*')([\d,]+)('.*)$"
-with open("~periods.dat.tmp", "w") as f:
+with open("periods.dat", "w") as f:
     for line in lines:
         match = re.search(pattern, line)
         if match:
@@ -57,5 +57,3 @@ with open("~periods.dat.tmp", "w") as f:
             )
         else:
             f.write(line)
-
-shutil.copy("~periods.dat.tmp", "periods.dat")
