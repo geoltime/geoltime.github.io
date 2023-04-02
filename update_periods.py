@@ -12,16 +12,25 @@ def period_start(period):
 
     if response.status_code == 200:
         data = json.loads(response.content)
-        startUri = data["result"]["primaryTopic"]["hasBeginning"]["_about"] + "Time"
+        try:
+            startUri = data["result"]["primaryTopic"]["hasBeginning"]["_about"] + "Time"
 
-        response = requests.get(api_root + startUri)
+            response = requests.get(api_root + startUri)
 
-        if response.status_code == 200:
-            data = json.loads(response.content)
-            return(data["result"]["primaryTopic"]["numericPosition"])
-        else:
-            print("Could not load beginning from: " + startUri)
+            if response.status_code == 200:
+                data = json.loads(response.content)
+                try:
+                    return(data["result"]["primaryTopic"]["numericPosition"])
+                except:
+                    print("Could not load numericPosition from : " + startUri)
+                    return 0
+            else:
+                print("Could not load beginning from: " + startUri)
+                return 0
+        except:
+            print("Could not load beginning for: " + period)
             return 0
+
 
     else:
         print("Could not load info from: " + period)
