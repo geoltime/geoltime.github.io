@@ -70,16 +70,18 @@ if (ma != null) {
   let fromPeriod = findTime(periods, maFrom);
   let fromSubP = findTime(subperiods, maFrom);
   let fromEpoch = findTime(epochs, maFrom);
-  let fromStage = (fromPeriod != null && fromPeriod.name == "Carboniferous") ?
-   findTime(stages, maFrom) : null;
+  // Commented out e.g. Upper Mississipian as `stages` no longer defined in 
+  // periods.js; a fix, including to Update.php, would be welcome if motivated!
+  let fromStage = /*(fromPeriod != null && fromPeriod.name == "Carboniferous") ?
+   findTime(stages, maFrom) :*/ null;
 
   let toEon = findTime(eons, maTo);
   let toEra = findTime(eras, maTo);
   let toPeriod = findTime(periods, maTo);
   let toSubP = findTime(subperiods, maTo);
   let toEpoch = findTime(epochs, maTo);
-  let toStage = (toPeriod != null && toPeriod.name == "Carboniferous") ?
-   findTime(stages, maTo) : null;
+  let toStage = /*(toPeriod != null && toPeriod.name == "Carboniferous") ?
+   findTime(stages, maTo) :*/ null;
 
   fsWhen.innerHTML = "<legend>When</legend>"
     + (fromEon == null ? "Before formation of Earth" : (wikilink(fromEon.name) + " eon"))
